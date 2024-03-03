@@ -17,7 +17,7 @@ class EmployeesPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Employ
   }
 
   @override
-  String? title(BuildContext context) => strings.users;
+  String? title(BuildContext context) => strings.employees;
 
   @override
   Widget build(BuildContext context) {

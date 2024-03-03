@@ -29,13 +29,13 @@ class _EmployeesDatasource implements EmployeesDatasource {
     _data.addAll(params.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<EmployeeDto>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/users/register',
+              '/employees/register',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -60,13 +60,13 @@ class _EmployeesDatasource implements EmployeesDatasource {
     _data.addAll(params.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<EmployeeDto>(Options(
-      method: 'GET',
+      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/users/update/${id}',
+              '/employees/update/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -93,7 +93,7 @@ class _EmployeesDatasource implements EmployeesDatasource {
     )
             .compose(
               _dio.options,
-              '/users',
+              '/employees',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -109,29 +109,28 @@ class _EmployeesDatasource implements EmployeesDatasource {
   }
 
   @override
-  Future<EmployeeDto> deleteEmployee(dynamic id) async {
+  Future<String> deleteEmployee(dynamic id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<EmployeeDto>(Options(
-      method: 'GET',
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/users/update/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = EmployeeDto.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/employees/delete/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
     return value;
   }
 

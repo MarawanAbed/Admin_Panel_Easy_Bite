@@ -1,5 +1,12 @@
 {
   "users": "Users",
+  "add_category": "Add Category",
+  "dashboard": "Dashboard",
+  "category_name": "Category Name",
+  "admin": "Admin",
+  "add_user": "Add User",
+    "edit_user": "Edit User",
+  "employees": "Employees",
 
 
 

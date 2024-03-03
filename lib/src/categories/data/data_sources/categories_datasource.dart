@@ -1,4 +1,3 @@
-import 'package:admin/src/profile/data/models/profile_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
@@ -25,7 +24,7 @@ abstract class  CategoriesDatasource{
   @GET('/categories')
   Future<List<CategoryDto>> fetchCategories();
 
-  @GET('/users/delete/{id}')
-  Future<CategoryDto> deleteCategory(@Path('id') id);
+  @DELETE('/users/delete/{id}')
+  Future<String> deleteCategory(@Path('id') id);
 
 }

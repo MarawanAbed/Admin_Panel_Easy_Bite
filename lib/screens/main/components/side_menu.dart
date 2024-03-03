@@ -1,4 +1,5 @@
 import 'package:admin/core/assets/app_icons.dart';
+import 'package:admin/core/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,6 +12,7 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.strings;
     return Drawer(
       child: ListView(
         children: [
@@ -18,13 +20,13 @@ class SideMenu extends StatelessWidget {
             child: Image.asset("assets/images/logo.png"),
           ),
           DrawerListTile(
-            title: "Dashboard",
+            title: strings.dashboard,
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: ()=> onNavigate(0),
           ),
           DrawerListTile(
-            title: "Transaction",
-            svgSrc: "assets/icons/menu_tran.svg",
+            title: strings.categories,
+            svgSrc: "assets/icons/menu_task.svg",
             press: ()=> onNavigate(1),
           ),
           DrawerListTile(

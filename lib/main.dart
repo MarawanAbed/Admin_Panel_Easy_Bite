@@ -1,18 +1,10 @@
 import 'dart:io';
 
-import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/core/theme/dark_theme.dart';
-import 'package:admin/screens/dashboard/dashboard_screen.dart';
-import 'package:admin/screens/main/main_screen.dart';
-import 'package:admin/src/auth/presentation/pages/login/login_page.dart';
 import 'package:admin/src/main_index.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'core/di/injector.dart';
 import 'core/network/base_client.dart';
 
 class MyHttpOverrides extends HttpOverrides {

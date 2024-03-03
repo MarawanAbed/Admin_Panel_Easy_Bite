@@ -10,7 +10,7 @@ class CategoriesUseCase {
   final CategoriesDatasource  apiProvider;
   CategoriesUseCase(this.apiProvider);
 
-  Future<List<CategoryDto>> fetchUsers() async {
+  Future<List<CategoryDto>> fetchCategories() async {
     return  await apiProvider.fetchCategories();
   }
 
@@ -18,7 +18,7 @@ class CategoriesUseCase {
     return  await apiProvider.createCategory(params);
   }
 
-  Future<CategoryDto> deleteUser(id) async {
+  Future<String> deleteUser(id) async {
     return  await apiProvider.deleteCategory(id);
   }
 

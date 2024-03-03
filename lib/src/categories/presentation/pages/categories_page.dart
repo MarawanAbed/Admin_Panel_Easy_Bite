@@ -1,3 +1,4 @@
+import 'package:admin/src/categories/data/models/category_dto.dart';
 import 'package:admin/src/profile/data/models/profile_dto.dart';
 
 import '../../../../../core/components/base_widget_bloc.dart';
@@ -8,7 +9,7 @@ import '../../data/models/create_category_params.dart';
 import '../bloc/categories_bloc.dart';
 import 'categories_screen.dart';
 
-class CategoriesPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, CategoriesCubit> {
+class CategoriesPage extends BaseBlocWidget<DataSuccess<List<CategoryDto>>, CategoriesCubit> {
   CategoriesPage({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class CategoriesPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Categ
   }
 
   @override
-  String? title(BuildContext context) => strings.users;
+  String? title(BuildContext context) => strings.categories;
 
   @override
   Widget build(BuildContext context) {
@@ -35,54 +36,39 @@ class CategoriesPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Categ
   }
 
   @override
-  Widget buildWidget(BuildContext context, DataSuccess<List<ProfileDto>> state) {
+  Widget buildWidget(BuildContext context, DataSuccess<List<CategoryDto>> state) {
     return CategoriesScreen(
       data: state.data ?? [],
       onDelete: (id) {
         bloc.deleteUser(id);
       },
       onEdit: (params) {
-        bloc.updateUser(params);
+        showAddUserDialog(context, (params) {
+          bloc.updateUser(params);
+        }, cat: params);
       },
     );
+  }
+
+  @override
+  void onSuccessDismissed() {
+    bloc.fetchInitialData();
   }
 }
 
 
-showAddUserDialog(BuildContext context, Function(CreateCategoryParams) onAddUser, {ProfileDto? user}) {
-  TextEditingController _nameController = TextEditingController(text: user?.userName);
-  TextEditingController _emailController = TextEditingController(text: user?.email);
-  TextEditingController _passwordController = TextEditingController();
+showAddUserDialog(BuildContext context, Function(CreateCategoryParams) onAddUser, {CategoryDto? cat}) {
+  TextEditingController nameController = TextEditingController(text: cat?.categoryName);
   bool isAdmin = false;
 
   showDialog(context: context, builder: (context) => AlertDialog(
-    title: Text('Add User'),
+    title: Text(context.strings.add_category),
     content: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextField(
-          hintText: 'Name',
-          controller: _nameController,
-        ),
-        CustomTextField(
-          hintText: 'Email',
-          controller: _emailController,
-        ),
-        CustomTextField(
-          hintText: 'Password',
-          controller: _passwordController,
-        ),
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: RadioSelectionList(
-            isGrid: true,
-              crossAxisCount: 2,
-            items: [RadioItem(title: 'Admin', value: 'admin'), RadioItem(title: 'User', value: 'user')],
-            onChanged: (item) {
-              isAdmin = item.value == 'admin';
-            },
-          ),
+          hintText: context.strings.category_name,
+          controller: nameController,
         ),
       ],
     ),
@@ -95,11 +81,10 @@ showAddUserDialog(BuildContext context, Function(CreateCategoryParams) onAddUser
       ),
       TextButton(
         onPressed: () {
+          Navigator.pop(context);
           onAddUser(CreateCategoryParams(
-            // userName: _nameController.text,
-            // email: _emailController.text,
-            // password: _passwordController.text,
-            // isAdmin: isAdmin,
+            id: cat?.id ?? '',
+            categoryName: nameController.text,
           ));
         },
         child: Text('Save'),

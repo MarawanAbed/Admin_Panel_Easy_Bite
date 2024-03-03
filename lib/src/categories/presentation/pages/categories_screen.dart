@@ -4,11 +4,12 @@ import 'package:admin/src/users/data/models/create_user_params.dart';
 
 import '../../../../../core/widgets/images/image_network.dart';
 import '../../../main_index.dart';
+import '../../data/models/category_dto.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  final List<ProfileDto> data;
+  final List<CategoryDto> data;
   final Function(String) onDelete;
-  final Function(CreateUserParams) onEdit;
+  final Function(CategoryDto) onEdit;
   const CategoriesScreen({super.key, required this.data, required this.onDelete, required this.onEdit});
 
   @override
@@ -21,12 +22,11 @@ class CategoriesScreen extends StatelessWidget {
         final item = data[index];
         return ListTile(
           leading: ImageNetwork(
-            url: item.userName,
+            url: item.categoryName,
             height: 50,
             width: 50,
           ),
-          title: Text(item.userName ?? ''),
-          subtitle: Text(item.email ?? ''),
+          title: Text(item.categoryName ?? ''),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -40,7 +40,7 @@ class CategoriesScreen extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  onEdit(CreateUserParams());
+                  onEdit(item);
                 },
               ),
             ],

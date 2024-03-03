@@ -17,6 +17,7 @@ abstract class BaseCubit extends Cubit<DataState>{
         onSuccess.call(response);
       }
     } catch (e) {
+      print('error $e');
       emit(DataFailed(e));
       rethrow;
     }

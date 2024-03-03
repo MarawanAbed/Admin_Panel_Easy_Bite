@@ -15,16 +15,16 @@ abstract class  PositionsDatasource{
   @factoryMethod
   factory PositionsDatasource(Dio dio) = _PositionsDatasource;
 
-  @GET('/positions/create')
+  @POST('/positions/create')
   Future<ProfileDto> createPosition(@Body() CreateUserParams params);
 
-  @GET('/positions/update/{id}')
+  @PUT('/positions/update/{id}')
   Future<ProfileDto> updatePosition(@Path('id') id, @Body() CreateUserParams params);
 
   @GET('/positions')
   Future<List<ProfileDto>> fetchPositions();
 
-  @GET('/positions/update/{id}')
+  @DELETE('/positions/update/{id}')
   Future<ProfileDto> deletePosition(@Path('id') id);
 
 }

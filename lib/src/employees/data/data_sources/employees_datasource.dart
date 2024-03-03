@@ -1,4 +1,3 @@
-import 'package:admin/src/profile/data/models/profile_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
@@ -15,16 +14,16 @@ abstract class  EmployeesDatasource{
   @factoryMethod
   factory EmployeesDatasource(Dio dio) = _EmployeesDatasource;
 
-  @GET('/users/register')
+  @POST('/employees/register')
   Future<EmployeeDto> createEmployee(@Body() EmployeeDto params);
 
-  @GET('/users/update/{id}')
+  @PUT('/employees/update/{id}')
   Future<EmployeeDto> updateEmployee(@Path('id') id, @Body() EmployeeDto params);
 
-  @GET('/users')
+  @GET('/employees')
   Future<List<EmployeeDto>> fetchEmployees();
 
-  @GET('/users/update/{id}')
-  Future<EmployeeDto> deleteEmployee(@Path('id') id);
+  @DELETE('/employees/delete/{id}')
+  Future<String> deleteEmployee(@Path('id') id);
 
 }

@@ -29,7 +29,7 @@ class _UsersDatasource implements UsersDatasource {
     _data.addAll(params.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
@@ -60,7 +60,7 @@ class _UsersDatasource implements UsersDatasource {
     _data.addAll(params.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
-      method: 'GET',
+      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
@@ -116,7 +116,7 @@ class _UsersDatasource implements UsersDatasource {
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
-      method: 'GET',
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )

@@ -1,6 +1,5 @@
 
 import 'package:admin/src/profile/data/models/profile_dto.dart';
-import 'package:admin/src/users/data/models/create_user_params.dart';
 
 import '../../../../../core/widgets/images/image_network.dart';
 import '../../../main_index.dart';
@@ -8,7 +7,7 @@ import '../../../main_index.dart';
 class UsersScreen extends StatelessWidget {
   final List<ProfileDto> data;
   final Function(String) onDelete;
-  final Function(CreateUserParams) onEdit;
+  final Function(ProfileDto) onEdit;
   const UsersScreen({super.key, required this.data, required this.onDelete, required this.onEdit});
 
   @override
@@ -31,16 +30,16 @@ class UsersScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
                 onPressed: () {
                   onDelete(item.id ?? '0');
                 },
               ),
               10.pw,
               IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
-                  onEdit(CreateUserParams());
+                  onEdit(item);
                 },
               ),
             ],

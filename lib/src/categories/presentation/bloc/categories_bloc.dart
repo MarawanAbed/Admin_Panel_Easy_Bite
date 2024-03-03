@@ -12,14 +12,14 @@ class CategoriesCubit extends BaseCubit {
   CategoriesCubit(this.usecase);
 
   void fetchInitialData() async {
-    // executeSuccess(() => usecase.fetchUsers());
-    emit(DataSuccess<List<ProfileDto>>([
-      ProfileDto(
-        id: '1',
-        userName: "John Doe",
-        email: "johnm@.cvp",
-      ),
-    ]));
+    executeSuccess(() => usecase.fetchCategories());
+    // emit(DataSuccess<List<ProfileDto>>([
+    //   ProfileDto(
+    //     id: '1',
+    //     userName: "John Doe",
+    //     email: "johnm@.cvp",
+    //   ),
+    // ]));
   }
 
   void createUser(params) async {

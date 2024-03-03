@@ -37,8 +37,8 @@ class HeaderInterceptor extends Interceptor {
     String token = await HelperMethods.getToken();
     print('token => $token');
     // options.headers[kApiKey] = "cmN5HsL5i2dlL0BgeLPZlEhzKYS9bO05HprxHeGIcGAco7/rpzcU27bdpPC90Dvb4z4tlDAzRY5+ZUxwwGW4EA==";
-    options.headers[keyAuthorization] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDhkZjNlMjhlZDVlMDU3OTg0NDJjZiIsImlzQWRtaW4iOnRydWUsImlzQ2hlZiI6ZmFsc2UsImlhdCI6MTcwOTQ2MzM0NSwiZXhwIjoxNzA5NTQ5NzQ1fQ.WHExYPadUOwUPR0NBzavj3XnhWHJtQz46zJ1ESUlxKE';
-    options.headers['Content-Type'] = 'application/json';
+    options.headers[keyAuthorization] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDhkZjNlMjhlZDVlMDU3OTg0NDJjZiIsImlzQWRtaW4iOnRydWUsImlzQ2hlZiI6ZmFsc2UsImlhdCI6MTcwOTQ4ODM1MCwiZXhwIjoxNzM1NDA4MzUwfQ.92Ifs03MN3uY-5m-zAmlebt2cBgXMDfoMtCaWJ28M8s';
+    // options.headers['Content-Type'] = 'application/json';
     // options.headers[keyAccept] = 'application/json';
     // options.headers[keyLanguage] = injector<ServicesLocator>().languageCode;
     // options.headers[keyCountry] = 'keep-alive';
@@ -77,13 +77,13 @@ class HeaderInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
-    Map<String, dynamic> data = response.data;
-    final message = data.containsKey('message') ? data['message'] : "Error";
+    // Map<String, dynamic> data = response.data;
+    // final message = data.containsKey('message') ? data['message'] : "Error";
     // final status = data.containsKey('status') ? data['status'] : "Error";
-    int code = data.containsKey('code') ? response.data['code'] : 0;
-    print('onRespons ${response.toString()} => ${code != 'Ok'}');
-    if (code == 403) {
-      throw ApiException(message, code.toString());
-    }
+    // int code = data.containsKey('code') ? response.data['code'] : 0;
+    // print('onRespons ${response.toString()} => ${code != 'Ok'}');
+    // if (code == 403) {
+    //   throw ApiException(message, code.toString());
+    // }
   }
 }

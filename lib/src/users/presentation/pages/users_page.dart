@@ -8,7 +8,8 @@ import '../../data/models/create_user_params.dart';
 import '../bloc/users_bloc.dart';
 import 'users_screen.dart';
 
-class UsersPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, UsersCubit> {
+class UsersPage
+    extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, UsersCubit> {
   UsersPage({Key? key}) : super(key: key);
 
   @override
@@ -28,82 +29,101 @@ class UsersPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, UsersCubit
             bloc.createUser(params);
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: buildConsumer(context),
     );
   }
 
   @override
-  Widget buildWidget(BuildContext context, DataSuccess<List<ProfileDto>> state) {
+  Widget buildWidget(
+      BuildContext context, DataSuccess<List<ProfileDto>> state) {
     return UsersScreen(
       data: state.data ?? [],
       onDelete: (id) {
         bloc.deleteUser(id);
       },
       onEdit: (params) {
-        bloc.updateUser(params);
+        showAddUserDialog(context, (params) {
+          bloc.updateUser(params);
+        }, user: params);
       },
     );
   }
+
+  @override
+  void onSuccessDismissed() {
+    bloc.fetchInitialData();
+  }
 }
 
-
-showAddUserDialog(BuildContext context, Function(CreateUserParams) onAddUser, {ProfileDto? user}) {
-  TextEditingController _nameController = TextEditingController(text: user?.userName);
-  TextEditingController _emailController = TextEditingController(text: user?.email);
-  TextEditingController _passwordController = TextEditingController();
+showAddUserDialog(BuildContext context, Function(CreateUserParams) onAddUser,
+    {ProfileDto? user}) {
+  TextEditingController nameController =
+      TextEditingController(text: user?.userName);
+  TextEditingController emailController =
+      TextEditingController(text: user?.email);
+  TextEditingController passwordController = TextEditingController(text: user?.password);
   bool isAdmin = false;
+  final strings = context.getStrings();
 
-  showDialog(context: context, builder: (context) => AlertDialog(
-    title: Text('Add User'),
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CustomTextField(
-          hintText: 'Name',
-          controller: _nameController,
-        ),
-        CustomTextField(
-          hintText: 'Email',
-          controller: _emailController,
-        ),
-        CustomTextField(
-          hintText: 'Password',
-          controller: _passwordController,
-        ),
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: RadioSelectionList(
-            isGrid: true,
-              crossAxisCount: 2,
-            items: [RadioItem(title: 'Admin', value: 'admin'), RadioItem(title: 'User', value: 'user')],
-            onChanged: (item) {
-              isAdmin = item.value == 'admin';
-            },
-          ),
-        ),
-      ],
-    ),
-    actions: [
-      TextButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Text('Cancel'),
-      ),
-      TextButton(
-        onPressed: () {
-          onAddUser(CreateUserParams(
-            userName: _nameController.text,
-            email: _emailController.text,
-            password: _passwordController.text,
-            isAdmin: isAdmin,
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text(user == null ? strings.add_user : strings.edit_user),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomTextField(
+                  hintText: strings.name,
+                  controller: nameController,
+                ),
+                CustomTextField(
+                  hintText: strings.email,
+                  controller: emailController,
+                ),
+                CustomTextField(
+                  hintText: strings.password,
+                  controller: passwordController,
+                  isPassword: true,
+                ),
+                SizedBox(
+                  height: 40,
+                  width: 200,
+                  child: RadioSelectionList(
+                    isGrid: true,
+                    crossAxisCount: 2,
+                    items: [
+                      RadioItem(title: strings.admin, value: 'admin'),
+                      RadioItem(title: strings.user, value: 'user')
+                    ],
+                    onChanged: (item) {
+                      isAdmin = item.value == 'admin';
+                    },
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  onAddUser(CreateUserParams(
+                    id: user?.id,
+                    userName: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                    isAdmin: isAdmin,
+                  ));
+                },
+                child: const Text('Save'),
+              ),
+            ],
           ));
-        },
-        child: Text('Save'),
-      ),
-    ],
-  ));
 }

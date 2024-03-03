@@ -1,4 +1,3 @@
-import 'package:admin/src/profile/data/models/profile_dto.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../data/data_sources/employees_datasource.dart';
@@ -17,7 +16,7 @@ class EmployeesUseCase {
     return  await apiProvider.createEmployee(params);
   }
 
-  Future<EmployeeDto> deleteUser(id) async {
+  Future<String> deleteUser(id) async {
     return  await apiProvider.deleteEmployee(id);
   }
 

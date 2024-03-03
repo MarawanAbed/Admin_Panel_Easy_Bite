@@ -15,16 +15,16 @@ abstract class  UsersDatasource{
   @factoryMethod
   factory UsersDatasource(Dio dio) = _UsersDatasource;
 
-  @GET('/users/register')
+  @POST('/users/register')
   Future<ProfileDto> createUser(@Body() CreateUserParams params);
 
-  @GET('/users/update/{id}')
+  @PUT('/users/update/{id}')
   Future<ProfileDto> updateUser(@Path('id') id, @Body() CreateUserParams params);
 
   @GET('/users')
   Future<List<ProfileDto>> fetchUsers();
 
-  @GET('/users/update/{id}')
+  @DELETE('/users/update/{id}')
   Future<ProfileDto> deleteUser(@Path('id') id);
 
 }
