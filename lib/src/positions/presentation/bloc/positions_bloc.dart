@@ -3,23 +3,23 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../core/bloc/base_cubit.dart';
 import '../../../../core/resources/data_state.dart';
-import '../../domain/use_cases/users_usecase.dart';
+import '../../domain/use_cases/positions_usecase.dart';
 
 @Injectable()
-class UsersCubit extends BaseCubit {
-  final UsersUseCase usecase;
+class PositionsCubit extends BaseCubit {
+  final PositionsUseCase usecase;
 
-  UsersCubit(this.usecase);
+  PositionsCubit(this.usecase);
 
   void fetchInitialData() async {
-    executeSuccess(() => usecase.fetchUsers());
-    // emit(DataSuccess<List<ProfileDto>>([
-    //   ProfileDto(
-    //     id: '1',
-    //     userName: "John Doe",
-    //     email: "johnm@.cvp",
-    //   ),
-    // ]));
+    // executeSuccess(() => usecase.fetchUsers());
+    emit(DataSuccess<List<ProfileDto>>([
+      ProfileDto(
+        id: '1',
+        userName: "John Doe",
+        email: "johnm@.cvp",
+      ),
+    ]));
   }
 
   void createUser(params) async {

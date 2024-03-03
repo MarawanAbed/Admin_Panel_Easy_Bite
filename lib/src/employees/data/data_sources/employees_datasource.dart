@@ -5,26 +5,26 @@ import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../../core/utils/constants.dart';
-import '../models/create_user_params.dart';
+import '../models/employee_dto.dart';
 
-part 'users_datasource.g.dart';
+part 'employees_datasource.g.dart';
 @Injectable()
 @RestApi(baseUrl: kBaseUrl)
-abstract class  UsersDatasource{
+abstract class  EmployeesDatasource{
 
   @factoryMethod
-  factory UsersDatasource(Dio dio) = _UsersDatasource;
+  factory EmployeesDatasource(Dio dio) = _EmployeesDatasource;
 
   @GET('/users/register')
-  Future<ProfileDto> createUser(@Body() CreateUserParams params);
+  Future<EmployeeDto> createEmployee(@Body() EmployeeDto params);
 
   @GET('/users/update/{id}')
-  Future<ProfileDto> updateUser(@Path('id') id, @Body() CreateUserParams params);
+  Future<EmployeeDto> updateEmployee(@Path('id') id, @Body() EmployeeDto params);
 
   @GET('/users')
-  Future<List<ProfileDto>> fetchUsers();
+  Future<List<EmployeeDto>> fetchEmployees();
 
   @GET('/users/update/{id}')
-  Future<ProfileDto> deleteUser(@Path('id') id);
+  Future<EmployeeDto> deleteEmployee(@Path('id') id);
 
 }
