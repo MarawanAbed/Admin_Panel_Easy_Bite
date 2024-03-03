@@ -4,6 +4,7 @@ const String svgPath = 'assets/icons';
 
 class AppIcons{
 
+  static const String logo = "assets/logo/logo.svg";
   static const String add = "assets/svgs/add.svg";
   static const String share_outline = "assets/svgs/share_outline.svg";
   static const String remove = "assets/svgs/remove.svg";
@@ -11,8 +12,8 @@ class AppIcons{
   static const String backward = "assets/svgs/backward.svg";
   static const String forward = "assets/svgs/forward.svg";
 
+
   static const appLogo = '$imagePath/app_logo.png';
-  static const logo = '$imagePath/logo.png';
   static const mushafImage = '$imagePath/mushaf.png';
   static const border = '$imagePath/border.png';
   static const sura = '$imagePath/sura.png';

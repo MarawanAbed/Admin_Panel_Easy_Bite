@@ -7,20 +7,26 @@ part of 'profile_dto.dart';
 // **************************************************************************
 
 ProfileDto _$ProfileDtoFromJson(Map<String, dynamic> json) => ProfileDto(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
-      lastName: json['last_name'] as String?,
-      phone: json['phone'] as String?,
+      id: json['_id'] as String?,
+      userName: json['userName'] as String?,
       email: json['email'] as String?,
-      accessToken: json['access_token'] as String?,
+      isAdmin: json['isAdmin'] as bool?,
+      isChef: json['isChef'] as bool?,
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      v: json['__v'] as int?,
+      accessToken: json['accessToken'] as String?,
     );
 
 Map<String, dynamic> _$ProfileDtoToJson(ProfileDto instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'last_name': instance.lastName,
-      'phone': instance.phone,
+      '_id': instance.id,
+      'userName': instance.userName,
       'email': instance.email,
-      'access_token': instance.accessToken,
+      'isAdmin': instance.isAdmin,
+      'isChef': instance.isChef,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+      '__v': instance.v,
+      'accessToken': instance.accessToken,
     };

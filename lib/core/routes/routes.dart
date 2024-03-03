@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:admin/src/benefits/presentation/pages/benefits_page.dart';
 
+import '../../screens/main/main_screen.dart';
 import '../../src/auth/presentation/pages/login/login_page.dart';
 import '../../src/auth/presentation/sign-up/register_page.dart';
 import '../../src/settings/presentation/pages/change-language/change_language_page.dart';
@@ -10,6 +10,7 @@ class Routes {
 
   static const String splashScreen = '/';
   static const String loginPage = 'login';
+  static const String dashboard = 'MainScreen';
   static const String registerPage = 'register';
   static const String changeLanguagePage = 'changeLanguagePage';
   static const String profilePage = 'profilePage';
@@ -62,6 +63,7 @@ class Routes {
   static final routes = <String, Widget Function(BuildContext)>{
     loginPage: (context) => LoginPage(),
     registerPage: (context) => RegisterPage(),
+    dashboard: (context) => MainScreen(),
     changeLanguagePage: (context) => ChangeLanguagePage(),
   };
 }

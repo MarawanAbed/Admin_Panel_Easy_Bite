@@ -16,7 +16,7 @@ class AuthRepo extends BaseAuthRepo{
   @override
   Future<ProfileDto> loginAsUser(LoginParams params) async{
     final response = await apiProvider.loginAsUser(params);
-    return response.data!;
+    return response;
   }
 
   @override

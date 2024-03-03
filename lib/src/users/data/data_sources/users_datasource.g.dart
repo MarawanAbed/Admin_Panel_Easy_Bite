@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_datasource.dart';
+part of 'users_datasource.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'auth_datasource.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _AuthDataSource implements AuthDataSource {
-  _AuthDataSource(
+class _UsersDatasource implements UsersDatasource {
+  _UsersDatasource(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,7 +21,7 @@ class _AuthDataSource implements AuthDataSource {
   String? baseUrl;
 
   @override
-  Future<ProfileDto> loginAsUser(LoginParams params) async {
+  Future<ProfileDto> createUser(CreateUserParams params) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -29,13 +29,13 @@ class _AuthDataSource implements AuthDataSource {
     _data.addAll(params.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
-      method: 'POST',
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/users/login',
+              '/users/register',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -49,22 +49,24 @@ class _AuthDataSource implements AuthDataSource {
   }
 
   @override
-  Future<ApiResponse<ProfileDto>> loginAsShowroom(
-      ShowroomLoginParams params) async {
+  Future<ProfileDto> updateUser(
+    dynamic id,
+    CreateUserParams params,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<ProfileDto>>(Options(
-      method: 'POST',
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/showroom/login',
+              '/users/update/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -73,29 +75,25 @@ class _AuthDataSource implements AuthDataSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ApiResponse<ProfileDto>.fromJson(
-      _result.data!,
-      (json) => ProfileDto.fromJson(json as Map<String, dynamic>),
-    );
+    final value = ProfileDto.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<ApiResponse<ProfileDto>> register(RegisterParams params) async {
+  Future<List<ProfileDto>> fetchUsers() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(params.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<ProfileDto>>(Options(
-      method: 'POST',
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<ProfileDto>>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/register',
+              '/users',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -104,10 +102,36 @@ class _AuthDataSource implements AuthDataSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ApiResponse<ProfileDto>.fromJson(
-      _result.data!,
-      (json) => ProfileDto.fromJson(json as Map<String, dynamic>),
-    );
+    var value = _result.data!
+        .map((dynamic i) => ProfileDto.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<ProfileDto> deleteUser(dynamic id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/update/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ProfileDto.fromJson(_result.data!);
     return value;
   }
 

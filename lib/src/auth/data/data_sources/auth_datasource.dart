@@ -18,7 +18,7 @@ abstract class  AuthDataSource{
   factory AuthDataSource(Dio dio) = _AuthDataSource;
 
   @POST('/users/login')
-  Future<ApiResponse<ProfileDto>> loginAsUser(@Body() LoginParams params);
+  Future<ProfileDto> loginAsUser(@Body() LoginParams params);
 
   @POST('/showroom/login')
   Future<ApiResponse<ProfileDto>> loginAsShowroom(@Body() ShowroomLoginParams params);

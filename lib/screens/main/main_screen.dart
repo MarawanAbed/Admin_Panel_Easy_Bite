@@ -1,6 +1,7 @@
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
+import 'package:admin/src/users/presentation/pages/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,9 +10,25 @@ import 'components/side_menu.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    PageController _pageController = PageController(initialPage: 1);
+    List<Widget> children = [
+      DashboardScreen(),
+      UsersPage(),
+      UsersPage(),
+      UsersPage(),
+      UsersPage(),
+      UsersPage(),
+      UsersPage(),
+    ];
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
-      drawer: SideMenu(),
+      drawer: SideMenu(
+        onNavigate: (index) {
+          // _pageController.animateTo(index,
+          //     duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+          _pageController.jumpToPage(index.toInt());
+        },
+      ),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,12 +38,23 @@ class MainScreen extends StatelessWidget {
               Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen
-                child: SideMenu(),
+                child: SideMenu(
+                  onNavigate: (index) {
+                    // _pageController.animateTo(index,
+                    //     duration: Duration(milliseconds: 200),
+                    //     curve: Curves.easeInOut);
+                    _pageController.jumpToPage(index.toInt());
+                  },
+                ),
               ),
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: DashboardScreen(),
+              child: PageView.builder(
+                itemCount: 7,
+                controller: _pageController,
+                itemBuilder: (context, index) => children[index],
+              ),
             ),
           ],
         ),

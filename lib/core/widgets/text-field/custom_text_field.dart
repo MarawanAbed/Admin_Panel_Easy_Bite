@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         maxLines: maxLines ?? 1,
         keyboardType: isPassword ? TextInputType.visiblePassword : keyboardType,
-        style: context.bodySmall.copyWith(fontSize: 16),
+        style: context.labelSmall.copyWith(fontSize: 16),
         obscureText: isPassword,
         controller: controller,
         textInputAction: TextInputAction.next,
@@ -54,7 +54,7 @@ class CustomTextField extends StatelessWidget {
         cursorOpacityAnimates: true,
         decoration: inputDecoration ?? InputDecoration(
           hintText: hintText,
-          hintStyle: hintStyle ?? context.displaySmall.copyWith(fontSize: 16),
+          hintStyle: hintStyle ?? context.displaySmall.copyWith(fontSize: 14),
           fillColor: fillColor ?? context.theme.inputDecorationTheme.fillColor,
           filled: true,
           prefixIconConstraints: BoxConstraints(

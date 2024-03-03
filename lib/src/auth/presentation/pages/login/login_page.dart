@@ -24,6 +24,6 @@ class LoginPage extends BaseBlocWidget<UnInitState, AuthCubit> {
 
   @override
   onSuccessDismissed() {
-    pushNamedAndRemoveUntil(Routes.mushafManagementPage);
+    pushNamedAndRemoveUntil(Routes.dashboard);
   }
 }

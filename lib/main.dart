@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
+import 'package:admin/core/theme/dark_theme.dart';
+import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/src/auth/presentation/pages/login/login_page.dart';
 import 'package:admin/src/main_index.dart';
@@ -44,37 +46,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Admin Panel',
-      navigatorKey: injector<ServicesLocator>().navigatorKey,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
-        canvasColor: secondaryColor,
-      ),
-      locale: const Locale('en'),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => MenuAppController(),
+        ),
       ],
-      supportedLocales: const [
-        Locale('en'), // English, no country code
-        Locale('ar'), // Arabic, no country code
-      ],
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => MenuAppController(),
-          ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Admin Panel',
+        navigatorKey: injector<ServicesLocator>().navigatorKey,
+        theme: darkTheme,
+        locale: const Locale('en'),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
-        child: LoginPage(),
+        supportedLocales: const [
+          Locale('en'), // English, no country code
+          Locale('ar'), // Arabic, no country code
+        ],
+        routes: Routes.routes,
+        initialRoute: Routes.dashboard,
       ),
-      // routes: Routes.routes,
-      // initialRoute: Routes.loginPage,
     );
   }
 }

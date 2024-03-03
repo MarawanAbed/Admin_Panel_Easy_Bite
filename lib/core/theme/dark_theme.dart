@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../constants.dart';
+
+// ThemeData.dark().copyWith(
+// scaffoldBackgroundColor: bgColor,
+// textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+//     .apply(bodyColor: Colors.white),
+// canvasColor: secondaryColor,
+// );
+
 final darkTheme = ThemeData(
-  primaryColor: const Color(0xff0376d9),
+  primaryColor: secondaryColor,
   brightness: Brightness.dark,
   dividerColor: Colors.black12,
-  scaffoldBackgroundColor: const Color(0xff121212),
+  scaffoldBackgroundColor: Color(0xFF212332),
+  canvasColor: secondaryColor ,
   appBarTheme: AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.grey[900],
@@ -19,7 +29,7 @@ final darkTheme = ThemeData(
     centerTitle: true,
     elevation: 0,
   ),
-  cardColor: Colors.grey[800],
+  cardColor: secondaryColor,
   textTheme:  const TextTheme(
     titleLarge: TextStyle(
       fontSize: 32,
@@ -46,7 +56,6 @@ final darkTheme = ThemeData(
       fontSize: 14.0,
       color: Colors.white,
       fontFamily: 'Tajawal-Light',
-      fontWeight: FontWeight.bold,
     ),
     bodyLarge: TextStyle(
       fontSize: 18.0,
@@ -76,7 +85,7 @@ final darkTheme = ThemeData(
     ),
     labelSmall: TextStyle(
       fontSize: 14.0,
-      color: Colors.grey,
+      color: Colors.white,
       fontFamily: 'Tajawal-Regular',
     ),
     titleSmall: TextStyle(

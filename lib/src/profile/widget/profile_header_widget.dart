@@ -20,7 +20,7 @@ class ProfileHeaderWidget extends StatelessWidget {
             decoration: BoxDecoration(color: context.primaryColor),
             margin: 20.paddingBottom,
             accountName: Text(
-              profile.data?.name ?? '',
+              profile.data?.userName ?? '',
               style: context.labelLarge,
             ),
             accountEmail: const SizedBox.shrink(),

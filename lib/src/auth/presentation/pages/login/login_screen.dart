@@ -3,8 +3,6 @@ import 'package:admin/src/auth/data/models/login_params.dart';
 import 'package:admin/src/main_index.dart';
 
 import '../../../../../core/resources/validation.dart';
-import '../../../../../core/utils/assets_manager.dart';
-import '../../../../../core/utils/colors_manager.dart';
 import '../../../../../core/widgets/text-field/custom_text_field.dart';
 
 class LoginScreen extends BaseStatelessWidget {
@@ -14,16 +12,19 @@ class LoginScreen extends BaseStatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _key = GlobalKey<FormState>();
+
   debugging() {
     if (kDebugMode) {
       _emailController.text = "admin@easybite.com";
       _passwordController.text = "admin";
     }
   }
+
   @override
   Widget build(BuildContext context) {
 
     debugging();
+
     return Form(
       key: _key,
       child: SingleChildScrollView(
@@ -34,7 +35,7 @@ class LoginScreen extends BaseStatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(20),
-                width: kIsWeb ? 500 : double.infinity,
+                width: 500,
                 decoration: Decorations.shapeBottomShadow( ),
                 child: Column(
                   children: [
