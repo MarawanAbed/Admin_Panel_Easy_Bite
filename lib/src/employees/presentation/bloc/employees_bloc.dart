@@ -3,23 +3,30 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../core/bloc/base_cubit.dart';
 import '../../../../core/resources/data_state.dart';
+import '../../../../core/widgets/drop_down/drop_down.dart';
+import '../../../positions/domain/use_cases/positions_usecase.dart';
 import '../../domain/use_cases/employees_usecase.dart';
 
 @Injectable()
 class EmployeesCubit extends BaseCubit {
   final EmployeesUseCase usecase;
+  final PositionsUseCase positionsUseCase;
 
-  EmployeesCubit(this.usecase);
+  EmployeesCubit(this.usecase, this.positionsUseCase);
 
   void fetchInitialData() async {
-    // executeSuccess(() => usecase.fetchUsers());
-    emit(DataSuccess<List<ProfileDto>>([
-      ProfileDto(
-        id: '1',
-        userName: "John Doe",
-        email: "johnm@.cvp",
-      ),
-    ]));
+    try {
+      emit(DataLoading());
+      final response = await usecase.fetchUsers();
+      final positions = await positionsUseCase.fetchPositions();
+      List<DropDownItem> items = positions
+          .map((e) => DropDownItem(
+              id: e.id, title: e.positionName, value: e.id.toString()))
+          .toList();
+      emit(DoubleDataSuccess(data1: response, data2: items));
+    } catch (e) {
+      emit(DataFailed(e));
+    }
   }
 
   void createUser(params) async {
@@ -33,7 +40,4 @@ class EmployeesCubit extends BaseCubit {
   void updateUser(params) async {
     executeEmitterListener(() => usecase.updateUser(params));
   }
-
-
-
 }

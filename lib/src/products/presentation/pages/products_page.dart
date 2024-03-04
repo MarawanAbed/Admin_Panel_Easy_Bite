@@ -1,14 +1,15 @@
+import 'package:admin/core/widgets/drop_down/drop_down.dart';
 import 'package:admin/src/profile/data/models/profile_dto.dart';
 
 import '../../../../../core/components/base_widget_bloc.dart';
-import '../../../../core/widgets/radio/radio_grid_list.dart';
 import '../../../../core/widgets/text-field/custom_text_field.dart';
 import '../../../main_index.dart';
-import '../../data/models/create_user_params.dart';
+import '../../data/models/product_dto.dart';
 import '../bloc/products_bloc.dart';
+import '../widgets/edit_profile_image.dart';
 import 'products_screen.dart';
 
-class ProductsPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, ProductsCubit> {
+class ProductsPage extends BaseBlocWidget<DoubleDataSuccess, ProductsCubit> {
   ProductsPage({Key? key}) : super(key: key);
 
   @override
@@ -17,16 +18,21 @@ class ProductsPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Product
   }
 
   @override
-  String? title(BuildContext context) => strings.users;
+  String? title(BuildContext context) => strings.products;
+  List<DropDownItem> items = [];
 
   @override
   Widget build(BuildContext context) {
     return mainFrame(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showAddUserDialog(context, (params) {
-            bloc.createUser(params);
-          });
+          showAddUserDialog(
+            context,
+            (params) {
+              bloc.createUser(params);
+            },
+            items: items,
+          );
         },
         child: Icon(Icons.add),
       ),
@@ -35,75 +41,87 @@ class ProductsPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Product
   }
 
   @override
-  Widget buildWidget(BuildContext context, DataSuccess<List<ProfileDto>> state) {
+  Widget buildWidget(BuildContext context, DoubleDataSuccess state) {
+    items = state.data2;
     return ProductsScreen(
-      data: state.data ?? [],
+      data: state.data1 ?? [],
       onDelete: (id) {
         bloc.deleteUser(id);
       },
       onEdit: (params) {
-        bloc.updateUser(params);
+        showAddUserDialog(
+          context,
+          (params) {
+            bloc.updateUser(params);
+          },
+          user: ProductDto(),
+          items: items,
+        );
       },
     );
   }
 }
 
-
-showAddUserDialog(BuildContext context, Function(CreateUserParams) onAddUser, {ProfileDto? user}) {
-  TextEditingController _nameController = TextEditingController(text: user?.userName);
-  TextEditingController _emailController = TextEditingController(text: user?.email);
-  TextEditingController _passwordController = TextEditingController();
-  bool isAdmin = false;
-
-  showDialog(context: context, builder: (context) => AlertDialog(
-    title: Text('Add User'),
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CustomTextField(
-          hintText: 'Name',
-          controller: _nameController,
-        ),
-        CustomTextField(
-          hintText: 'Email',
-          controller: _emailController,
-        ),
-        CustomTextField(
-          hintText: 'Password',
-          controller: _passwordController,
-        ),
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: RadioSelectionList(
-            isGrid: true,
-              crossAxisCount: 2,
-            items: [RadioItem(title: 'Admin', value: 'admin'), RadioItem(title: 'User', value: 'user')],
-            onChanged: (item) {
-              isAdmin = item.value == 'admin';
-            },
-          ),
-        ),
-      ],
-    ),
-    actions: [
-      TextButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Text('Cancel'),
-      ),
-      TextButton(
-        onPressed: () {
-          onAddUser(CreateUserParams(
-            userName: _nameController.text,
-            email: _emailController.text,
-            password: _passwordController.text,
-            isAdmin: isAdmin,
+showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
+    {ProductDto? user, required List<DropDownItem> items}) {
+  TextEditingController itemNameController =
+      TextEditingController(text: user?.itemName);
+  TextEditingController priceController =
+      TextEditingController(text: user?.price?.toString() ?? '');
+  TextEditingController descriptionController = TextEditingController();
+  String catId = user?.id ?? '';
+  final strings = context.getStrings();
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text(strings.add_product),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                EditProfileImage(
+                  image: user?.itemName ?? '',
+                  onSelectImage: (file) {},
+                ),
+                CustomTextField(
+                  hintText: strings.product_name,
+                  controller: itemNameController,
+                ),
+                CustomTextField(
+                  hintText: strings.price,
+                  controller: priceController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                ),
+                CustomTextField(
+                  hintText: strings.description,
+                  controller: descriptionController,
+                ),
+                DropDownField(
+                  hint: strings.categories,
+                    items: items,
+                    onChanged: (value) {
+                      catId = value.id ?? '';
+                    }),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  onAddUser(ProductDto(
+                    id: user?.id ?? catId,
+                    itemName: itemNameController.text,
+                    price: int.parse(priceController.text),
+                    description: descriptionController.text,
+                  ));
+                },
+                child: Text('Save'),
+              ),
+            ],
           ));
-        },
-        child: Text('Save'),
-      ),
-    ],
-  ));
 }

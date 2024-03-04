@@ -2,26 +2,26 @@ import 'package:admin/src/profile/data/models/profile_dto.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../data/data_sources/positions_datasource.dart';
-import '../../data/models/create_user_params.dart';
+import '../../data/models/position_dto.dart';
 
 @Injectable()
 class PositionsUseCase {
   final PositionsDatasource  apiProvider;
   PositionsUseCase(this.apiProvider);
 
-  Future<List<ProfileDto>> fetchUsers() async {
+  Future<List<PositionDto>> fetchPositions() async {
     return  await apiProvider.fetchPositions();
   }
 
-  Future<ProfileDto> createUser(CreateUserParams params) async {
+  Future<ProfileDto> createPosition(PositionDto params) async {
     return  await apiProvider.createPosition(params);
   }
 
-  Future<ProfileDto> deleteUser(id) async {
+  Future<String> deleteUser(id) async {
     return  await apiProvider.deletePosition(id);
   }
 
-  Future<ProfileDto> updateUser(CreateUserParams params) async {
+  Future<PositionDto> updatePosition(PositionDto params) async {
     return  await apiProvider.updatePosition(params.id, params);
   }
 

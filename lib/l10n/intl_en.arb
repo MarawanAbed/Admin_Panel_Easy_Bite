@@ -5,8 +5,27 @@
   "category_name": "Category Name",
   "admin": "Admin",
   "add_user": "Add User",
-    "edit_user": "Edit User",
+  "edit_user": "Edit User",
   "employees": "Employees",
+  "products": "Products",
+  "add_product": "Add Product",
+  "edit_product": "Edit Product",
+  "product_name": "Product Name",
+  "jobs": "Jobs",
+  "add_job": "Add Job",
+  "edit_job": "Edit Job",
+  "job_name": "Job Name",
+  "salary": "Salary",
+  "positions": "Positions",
+  "add_position": "Add Position",
+  "edit_position": "Edit Position",
+  "position_name": "Position Name",
+  "add_employee": "Add Employee",
+  "edit_employee": "Edit Employee",
+  "employee_name": "Employee Name",
+  "birth_date": "BirthDate",
+  "hire_date": "HireDate",
+  "termination_date": "terminationDate",
 
 
 
@@ -81,14 +100,6 @@
   "the_break": "الفاصل",
   "share": "مشاركة",
   "library": "المكتبة",
-
-
-
-
-
-
-
-
   "sign_up": "Sign Up",
   "cars": "Cars",
   "plates": "Plates",

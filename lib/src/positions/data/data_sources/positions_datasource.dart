@@ -5,7 +5,7 @@ import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../../core/utils/constants.dart';
-import '../models/create_user_params.dart';
+import '../models/position_dto.dart';
 
 part 'positions_datasource.g.dart';
 @Injectable()
@@ -16,15 +16,15 @@ abstract class  PositionsDatasource{
   factory PositionsDatasource(Dio dio) = _PositionsDatasource;
 
   @POST('/positions/create')
-  Future<ProfileDto> createPosition(@Body() CreateUserParams params);
+  Future<ProfileDto> createPosition(@Body() PositionDto params);
 
   @PUT('/positions/update/{id}')
-  Future<ProfileDto> updatePosition(@Path('id') id, @Body() CreateUserParams params);
+  Future<PositionDto> updatePosition(@Path('id') id, @Body() PositionDto params);
 
   @GET('/positions')
-  Future<List<ProfileDto>> fetchPositions();
+  Future<List<PositionDto>> fetchPositions();
 
   @DELETE('/positions/update/{id}')
-  Future<ProfileDto> deletePosition(@Path('id') id);
+  Future<String> deletePosition(@Path('id') id);
 
 }

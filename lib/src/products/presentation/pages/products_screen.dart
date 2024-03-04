@@ -4,11 +4,12 @@ import 'package:admin/src/users/data/models/create_user_params.dart';
 
 import '../../../../../core/widgets/images/image_network.dart';
 import '../../../main_index.dart';
+import '../../data/models/product_dto.dart';
 
 class ProductsScreen extends StatelessWidget {
-  final List<ProfileDto> data;
+  final List<ProductDto> data;
   final Function(String) onDelete;
-  final Function(CreateUserParams) onEdit;
+  final Function(ProductDto) onEdit;
   const ProductsScreen({super.key, required this.data, required this.onDelete, required this.onEdit});
 
   @override
@@ -21,12 +22,18 @@ class ProductsScreen extends StatelessWidget {
         final item = data[index];
         return ListTile(
           leading: ImageNetwork(
-            url: item.userName,
+            url: item.itemName,
             height: 50,
             width: 50,
           ),
-          title: Text(item.userName ?? ''),
-          subtitle: Text(item.email ?? ''),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(item.itemName?.toString() ?? ''),
+              Text(item.price?.toString() ?? ''),
+            ],
+          ),
+          subtitle: Text(item.description ?? ''),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -40,7 +47,7 @@ class ProductsScreen extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  onEdit(CreateUserParams());
+                  onEdit(item);
                 },
               ),
             ],

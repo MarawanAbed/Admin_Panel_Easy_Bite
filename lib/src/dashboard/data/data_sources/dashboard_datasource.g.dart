@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'positions_datasource.dart';
+part of 'dashboard_datasource.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'positions_datasource.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _PositionsDatasource implements PositionsDatasource {
-  _PositionsDatasource(
+class _DashboardDatasource implements DashboardDatasource {
+  _DashboardDatasource(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,21 +21,21 @@ class _PositionsDatasource implements PositionsDatasource {
   String? baseUrl;
 
   @override
-  Future<ProfileDto> createPosition(PositionDto params) async {
+  Future<CategoryDto> createCategory(CreateCategoryParams params) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<CategoryDto>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/positions/create',
+              '/categories/create',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -44,14 +44,14 @@ class _PositionsDatasource implements PositionsDatasource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ProfileDto.fromJson(_result.data!);
+    final value = CategoryDto.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<PositionDto> updatePosition(
+  Future<CategoryDto> updateCategory(
     dynamic id,
-    PositionDto params,
+    CreateCategoryParams params,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -59,14 +59,14 @@ class _PositionsDatasource implements PositionsDatasource {
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<PositionDto>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<CategoryDto>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/positions/update/${id}',
+              '/categories/update/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -75,25 +75,25 @@ class _PositionsDatasource implements PositionsDatasource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = PositionDto.fromJson(_result.data!);
+    final value = CategoryDto.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<List<PositionDto>> fetchPositions() async {
+  Future<List<CategoryDto>> fetchCategories() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<PositionDto>>(Options(
+        .fetch<List<dynamic>>(_setStreamType<List<CategoryDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/positions',
+              '/categories',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -103,13 +103,13 @@ class _PositionsDatasource implements PositionsDatasource {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => PositionDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => CategoryDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<String> deletePosition(dynamic id) async {
+  Future<String> deleteCategory(dynamic id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -121,7 +121,7 @@ class _PositionsDatasource implements PositionsDatasource {
     )
         .compose(
           _dio.options,
-          '/positions/update/${id}',
+          '/users/delete/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

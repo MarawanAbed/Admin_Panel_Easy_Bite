@@ -4,11 +4,11 @@ import '../../../../../core/components/base_widget_bloc.dart';
 import '../../../../core/widgets/radio/radio_grid_list.dart';
 import '../../../../core/widgets/text-field/custom_text_field.dart';
 import '../../../main_index.dart';
-import '../../data/models/create_user_params.dart';
+import '../../data/models/position_dto.dart';
 import '../bloc/positions_bloc.dart';
 import 'positions_screen.dart';
 
-class PositionsPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, PositionsCubit> {
+class PositionsPage extends BaseBlocWidget<DataSuccess<List<PositionDto>>, PositionsCubit> {
   PositionsPage({Key? key}) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class PositionsPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Positi
     return mainFrame(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showAddUserDialog(context, (params) {
+          showAddJobDialog(context, (params) {
             bloc.createUser(params);
           });
         },
@@ -35,7 +35,7 @@ class PositionsPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Positi
   }
 
   @override
-  Widget buildWidget(BuildContext context, DataSuccess<List<ProfileDto>> state) {
+  Widget buildWidget(BuildContext context, DataSuccess<List<PositionDto>> state) {
     return PositionsScreen(
       data: state.data ?? [],
       onDelete: (id) {
@@ -49,40 +49,24 @@ class PositionsPage extends BaseBlocWidget<DataSuccess<List<ProfileDto>>, Positi
 }
 
 
-showAddUserDialog(BuildContext context, Function(CreateUserParams) onAddUser, {ProfileDto? user}) {
-  TextEditingController _nameController = TextEditingController(text: user?.userName);
-  TextEditingController _emailController = TextEditingController(text: user?.email);
-  TextEditingController _passwordController = TextEditingController();
+showAddJobDialog(BuildContext context, Function(PositionDto) onAddUser, {PositionDto? user}) {
+  TextEditingController positionNameController = TextEditingController(text: user?.positionName);
+  TextEditingController salaryController = TextEditingController(text: user?.salary?.toString());
   bool isAdmin = false;
-
+  final strings = context.getStrings();
   showDialog(context: context, builder: (context) => AlertDialog(
-    title: Text('Add User'),
+    title: Text(user == null ? strings.add_job : strings.edit_job),
     content: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextField(
-          hintText: 'Name',
-          controller: _nameController,
+          hintText: strings.job_name,
+          controller: positionNameController,
         ),
         CustomTextField(
-          hintText: 'Email',
-          controller: _emailController,
-        ),
-        CustomTextField(
-          hintText: 'Password',
-          controller: _passwordController,
-        ),
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: RadioSelectionList(
-            isGrid: true,
-              crossAxisCount: 2,
-            items: [RadioItem(title: 'Admin', value: 'admin'), RadioItem(title: 'User', value: 'user')],
-            onChanged: (item) {
-              isAdmin = item.value == 'admin';
-            },
-          ),
+          hintText: strings.salary,
+          controller: salaryController,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         ),
       ],
     ),
@@ -95,11 +79,10 @@ showAddUserDialog(BuildContext context, Function(CreateUserParams) onAddUser, {P
       ),
       TextButton(
         onPressed: () {
-          onAddUser(CreateUserParams(
-            userName: _nameController.text,
-            email: _emailController.text,
-            password: _passwordController.text,
-            isAdmin: isAdmin,
+          onAddUser(PositionDto(
+            id: user?.id,
+            positionName: positionNameController.text,
+            salary: int.tryParse(salaryController.text),
           ));
         },
         child: Text('Save'),

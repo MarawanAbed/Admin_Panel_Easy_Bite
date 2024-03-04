@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -128,27 +131,27 @@ class HelperMethods {
         fontSize: 16.0);
   }
 
-  // static Future<bool> isWifiConnection() async {
-  //   if (Platform.isAndroid) {
-  //     await Permission.phone.request();
-  //   }
-  //   NetworkStatus networkStatus =
-  //       await ConnectionNetworkType().currentNetworkStatus();
-  //   return networkStatus == NetworkStatus.wifi;
-  // }
-  //
-  // static Future<void> checkTypeConnection({required Function() onTap}) async {
-  //   BuildContext context = injector<ServicesLocator>().appContext;
-  //   if (await isWifiConnection()) {
-  //     onTap.call();
-  //   } else {
-  //     DialogsManager.showInfoDialog(context,
-  //         message: context.strings.are_sure_download_quran_phone_data,
-  //         onClickOk: () {
-  //       onTap.call();
-  //     });
-  //   }
-  // }
+  static Future<CroppedFile?> getImagePicker() async {
+    XFile? imageFile;
+    imageFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    return await ImageCropper().cropImage(
+      sourcePath: imageFile!.path,
+      //  aspectRatio: const CropAspectRatio(ratioX: 2, ratioY: 1),
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarColor: Colors.black,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: true),
+      ],
+    );
+  }
+
+  static Future<File> getImageFromGallery() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    return File(pickedFile!.path);
+  }
 
   static Future<void> saveMushaf(int id) async {
     try {

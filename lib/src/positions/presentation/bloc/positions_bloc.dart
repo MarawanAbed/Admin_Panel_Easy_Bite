@@ -23,7 +23,7 @@ class PositionsCubit extends BaseCubit {
   }
 
   void createUser(params) async {
-    executeEmitterListener(() => usecase.createUser(params));
+    executeEmitterListener(() => usecase.createPosition(params));
   }
 
   void deleteUser(id) async {
@@ -31,7 +31,7 @@ class PositionsCubit extends BaseCubit {
   }
 
   void updateUser(params) async {
-    executeEmitterListener(() => usecase.updateUser(params));
+    executeEmitterListener(() => usecase.updatePosition(params));
   }
 
 

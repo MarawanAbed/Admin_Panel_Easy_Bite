@@ -21,15 +21,15 @@ class _ProductsDatasource implements ProductsDatasource {
   String? baseUrl;
 
   @override
-  Future<ProfileDto> createProduct(CreateUserParams params) async {
+  Future<ProductDto> createProduct(ProductDto params) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
-      method: 'GET',
+        .fetch<Map<String, dynamic>>(_setStreamType<ProductDto>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
@@ -44,14 +44,14 @@ class _ProductsDatasource implements ProductsDatasource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ProfileDto.fromJson(_result.data!);
+    final value = ProductDto.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<ProfileDto> updateProduct(
+  Future<ProductDto> updateProduct(
     dynamic id,
-    CreateUserParams params,
+    ProductDto params,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -59,8 +59,8 @@ class _ProductsDatasource implements ProductsDatasource {
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
-      method: 'GET',
+        .fetch<Map<String, dynamic>>(_setStreamType<ProductDto>(Options(
+      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
@@ -75,18 +75,18 @@ class _ProductsDatasource implements ProductsDatasource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ProfileDto.fromJson(_result.data!);
+    final value = ProductDto.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<List<ProfileDto>> fetchProducts() async {
+  Future<List<ProductDto>> fetchProducts() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<ProfileDto>>(Options(
+        .fetch<List<dynamic>>(_setStreamType<List<ProductDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -103,35 +103,34 @@ class _ProductsDatasource implements ProductsDatasource {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => ProfileDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => ProductDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<ProfileDto> deleteProduct(dynamic id) async {
+  Future<String> deleteProduct(dynamic id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProfileDto>(Options(
-      method: 'GET',
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/items/update/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = ProfileDto.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/items/update/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
     return value;
   }
 

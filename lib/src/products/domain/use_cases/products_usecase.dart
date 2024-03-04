@@ -1,27 +1,26 @@
-import 'package:admin/src/profile/data/models/profile_dto.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../data/data_sources/products_datasource.dart';
-import '../../data/models/create_user_params.dart';
+import '../../data/models/product_dto.dart';
 
 @Injectable()
 class ProductsUseCase {
   final ProductsDatasource  apiProvider;
   ProductsUseCase(this.apiProvider);
 
-  Future<List<ProfileDto>> fetchUsers() async {
+  Future<List<ProductDto>> fetchUsers() async {
     return  await apiProvider.fetchProducts();
   }
 
-  Future<ProfileDto> createUser(CreateUserParams params) async {
+  Future<ProductDto> createUser(ProductDto params) async {
     return  await apiProvider.createProduct(params);
   }
 
-  Future<ProfileDto> deleteUser(id) async {
+  Future<String> deleteUser(id) async {
     return  await apiProvider.deleteProduct(id);
   }
 
-  Future<ProfileDto> updateUser(CreateUserParams params) async {
+  Future<ProductDto> updateUser(ProductDto params) async {
     return  await apiProvider.updateProduct(params.id, params);
   }
 

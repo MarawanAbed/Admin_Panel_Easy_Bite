@@ -4,11 +4,12 @@ import 'package:admin/src/users/data/models/create_user_params.dart';
 
 import '../../../../../core/widgets/images/image_network.dart';
 import '../../../main_index.dart';
+import '../../data/models/position_dto.dart';
 
 class PositionsScreen extends StatelessWidget {
-  final List<ProfileDto> data;
+  final List<PositionDto> data;
   final Function(String) onDelete;
-  final Function(CreateUserParams) onEdit;
+  final Function(PositionDto) onEdit;
   const PositionsScreen({super.key, required this.data, required this.onDelete, required this.onEdit});
 
   @override
@@ -20,13 +21,8 @@ class PositionsScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = data[index];
         return ListTile(
-          leading: ImageNetwork(
-            url: item.userName,
-            height: 50,
-            width: 50,
-          ),
-          title: Text(item.userName ?? ''),
-          subtitle: Text(item.email ?? ''),
+          title: Text(item.positionName ?? ''),
+          subtitle: Text(item.salary.toString() ?? ''),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -40,7 +36,7 @@ class PositionsScreen extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  onEdit(CreateUserParams());
+                  onEdit(item);
                 },
               ),
             ],

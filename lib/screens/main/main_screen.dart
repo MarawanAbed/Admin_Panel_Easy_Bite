@@ -2,22 +2,25 @@ import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
 import 'package:admin/src/categories/presentation/pages/categories_page.dart';
+import 'package:admin/src/positions/presentation/pages/positions_page.dart';
 import 'package:admin/src/users/presentation/pages/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../src/dashboard/presentation/pages/dashboard_page.dart';
 import '../../src/employees/presentation/pages/employees_page.dart';
+import '../../src/products/presentation/pages/products_page.dart';
 import 'components/side_menu.dart';
 
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    PageController _pageController = PageController(initialPage: 6);
+    PageController _pageController = PageController(initialPage: 2);
     List<Widget> children = [
-      DashboardScreen(),
+      DashboardPage(),
       CategoriesPage(),
-      UsersPage(),
-      UsersPage(),
+      ProductsPage(),
+      PositionsPage(),
       EmployeesPage(),
       UsersPage(),
       UsersPage(),

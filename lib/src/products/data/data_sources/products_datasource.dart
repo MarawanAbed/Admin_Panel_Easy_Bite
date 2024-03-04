@@ -5,7 +5,7 @@ import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../../core/utils/constants.dart';
-import '../models/create_user_params.dart';
+import '../models/product_dto.dart';
 
 part 'products_datasource.g.dart';
 @Injectable()
@@ -15,16 +15,16 @@ abstract class  ProductsDatasource{
   @factoryMethod
   factory ProductsDatasource(Dio dio) = _ProductsDatasource;
 
-  @GET('/items/create')
-  Future<ProfileDto> createProduct(@Body() CreateUserParams params);
+  @POST('/items/create')
+  Future<ProductDto> createProduct(@Body() ProductDto params);
 
-  @GET('/items/update/{id}')
-  Future<ProfileDto> updateProduct(@Path('id') id, @Body() CreateUserParams params);
+  @PUT('/items/update/{id}')
+  Future<ProductDto> updateProduct(@Path('id') id, @Body() ProductDto params);
 
   @GET('/items')
-  Future<List<ProfileDto>> fetchProducts();
+  Future<List<ProductDto>> fetchProducts();
 
-  @GET('/items/update/{id}')
-  Future<ProfileDto> deleteProduct(@Path('id') id);
+  @DELETE('/items/update/{id}')
+  Future<String> deleteProduct(@Path('id') id);
 
 }
