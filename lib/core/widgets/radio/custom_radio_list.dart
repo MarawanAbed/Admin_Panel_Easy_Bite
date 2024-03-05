@@ -43,10 +43,10 @@ class CustomRadioList extends BaseStatelessWidget {
                 visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
                 onChanged: onChanged,
               ),
-              SizedBox(width: 10),
+              10.pw,
               textWidget ?? Expanded(child: Text(
                 title,
-                style: titleStyle ?? labelMedium.copyWith(fontSize: 14),
+                style: titleStyle ?? bodyMedium.copyWith(fontSize: 14),
               ),),
             ],
           ),
@@ -55,7 +55,7 @@ class CustomRadioList extends BaseStatelessWidget {
               padding: 30.paddingStart,
               child: Text(
                 subTitle!,
-                style: subTitleStyle ?? labelMedium.copyWith(fontSize: 12),
+                style: subTitleStyle ?? bodyMedium.copyWith(fontSize: 12),
               ),
             ),
           ),

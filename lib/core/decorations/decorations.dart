@@ -125,13 +125,13 @@ class Decorations {
     return ShapeDecoration(
       color: color ?? injector<ServicesLocator>().appContext.cardColor,
       shape: RoundedRectangleBorder(
-          borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 20)),
+          borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 0)),
       shadows: [
         BoxShadow(
-          color: colorShadow ?? context.primaryColor.withOpacity(0.1),
-          blurRadius: 2,
+          color: colorShadow ?? Colors.black.withOpacity(0.15),
+          blurRadius: 15,
           offset: Offset(0, 0),
-          spreadRadius: 0,
+          spreadRadius: 5,
         )
       ],
     );

@@ -8,7 +8,15 @@ class RowButtons extends StatelessWidget {
   final Function()? onPressed1;
   final Function()? onPressed2;
   final EdgeInsetsGeometry? margin;
-  const RowButtons({Key? key, this.title1, this.title2, this.onPressed1, this.onPressed2, this.margin}) : super(key: key);
+
+  const RowButtons(
+      {Key? key,
+      this.title1,
+      this.title2,
+      this.onPressed1,
+      this.onPressed2,
+      this.margin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,25 +25,23 @@ class RowButtons extends StatelessWidget {
       padding: margin ?? EdgeInsets.zero,
       child: Row(
         children: [
-          Expanded(
-            child: PrimaryButton(
-              title: title1,
-              height: 40,
-              backgroundColor: theme.colorScheme.primaryContainer,
-              radius: 15,
-              onPressed: onPressed1,
-            ),
+          PrimaryButton(
+            title: title1,
+            height: 40,
+            backgroundColor: theme.colorScheme.primaryContainer,
+            radius: 15,
+            onPressed: onPressed1,
+            width: 200,
           ),
           10.pw,
-          Expanded(
-            child: PrimaryButton(
-              title: title2,
-              height: 40,
-              backgroundColor: theme.colorScheme.errorContainer,
-              radius: 15,
-              onPressed: onPressed2,
+          PrimaryButton(
+            title: title2,
+            height: 40,
+            backgroundColor: theme.colorScheme.errorContainer,
+            radius: 15,
+            onPressed: onPressed2,
+            width: 200,
             ),
-          ),
         ],
       ),
     );

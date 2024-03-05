@@ -1,4 +1,6 @@
 
+import 'package:admin/src/employees/presentation/widgets/quotation_item.dart';
+import 'package:admin/src/products/presentation/widgets/edit_profile_image.dart';
 import 'package:admin/src/profile/data/models/profile_dto.dart';
 
 import '../../../../../core/widgets/images/image_network.dart';
@@ -12,37 +14,40 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 200,
+        childAspectRatio: 0.7,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+
+      ),
       itemCount: data.length,
       shrinkWrap: true,
       padding: 10.paddingAll,
       itemBuilder: (context, index) {
         final item = data[index];
-        return ListTile(
-          leading: ImageNetwork(
-            url: item.userName,
-            height: 50,
-            width: 50,
-          ),
-          title: Text(item.userName ?? ''),
-          subtitle: Text(item.email ?? ''),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  onDelete(item.id ?? '0');
-                },
-              ),
-              10.pw,
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  onEdit(item);
-                },
-              ),
-            ],
+        return Container(
+          margin: 10.paddingBottom,
+          decoration: Decorations.shapeDecorationShadow(),
+          child: FittedBox(
+            child: Column(
+              children: [
+                EditProfileImage(
+                 image: item.userName ?? '',
+                  onSelectImage: (file) {
+                    print(file);
+                  },
+                ),
+                Text(item.userName ?? ''),
+                Text(item.email ?? ''),
+                10.ph,
+                AddEditButtons(
+                  onDelete: () => onDelete(item.id ?? ''),
+                  onEdit: () => onEdit(item),
+                )
+              ],
+            ),
           ),
         );
       },

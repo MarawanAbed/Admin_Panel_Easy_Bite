@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/core/theme/dark_theme.dart';
+import 'package:admin/core/theme/light_theme.dart';
 import 'package:admin/src/main_index.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Admin Panel',
         navigatorKey: injector<ServicesLocator>().navigatorKey,
-        theme: darkTheme,
+        theme: lightTheme,
         locale: const Locale('en'),
         localizationsDelegates: const [
           AppLocalizations.delegate,

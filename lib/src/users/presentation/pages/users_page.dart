@@ -6,6 +6,7 @@ import '../../../../core/widgets/text-field/custom_text_field.dart';
 import '../../../main_index.dart';
 import '../../data/models/create_user_params.dart';
 import '../bloc/users_bloc.dart';
+import '../widgets/quotation_item.dart';
 import 'users_screen.dart';
 
 class UsersPage
@@ -23,13 +24,12 @@ class UsersPage
   @override
   Widget build(BuildContext context) {
     return mainFrame(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingAddButton(
         onPressed: () {
           showAddUserDialog(context, (params) {
             bloc.createUser(params);
           });
         },
-        child: const Icon(Icons.add),
       ),
       body: buildConsumer(context),
     );
@@ -63,7 +63,8 @@ showAddUserDialog(BuildContext context, Function(CreateUserParams) onAddUser,
       TextEditingController(text: user?.userName);
   TextEditingController emailController =
       TextEditingController(text: user?.email);
-  TextEditingController passwordController = TextEditingController(text: user?.password);
+  TextEditingController passwordController =
+      TextEditingController(text: user?.password);
   bool isAdmin = false;
   final strings = context.getStrings();
 

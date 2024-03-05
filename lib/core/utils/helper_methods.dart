@@ -131,20 +131,20 @@ class HelperMethods {
         fontSize: 16.0);
   }
 
-  static Future<CroppedFile?> getImagePicker() async {
-    XFile? imageFile;
-    imageFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    return await ImageCropper().cropImage(
-      sourcePath: imageFile!.path,
-      //  aspectRatio: const CropAspectRatio(ratioX: 2, ratioY: 1),
-      uiSettings: [
-        AndroidUiSettings(
-            toolbarColor: Colors.black,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: true),
-      ],
-    );
+  static Future<XFile?> getImagePicker() async {
+    // XFile? imageFile;
+    return await ImagePicker().pickImage(source: ImageSource.gallery);
+    // return await ImageCropper().cropImage(
+    //   sourcePath: imageFile!.path,
+    //   //  aspectRatio: const CropAspectRatio(ratioX: 2, ratioY: 1),
+    //   uiSettings: [
+    //     AndroidUiSettings(
+    //         toolbarColor: Colors.black,
+    //         toolbarWidgetColor: Colors.white,
+    //         initAspectRatio: CropAspectRatioPreset.original,
+    //         lockAspectRatio: true),
+    //   ],
+    // );
   }
 
   static Future<File> getImageFromGallery() async {

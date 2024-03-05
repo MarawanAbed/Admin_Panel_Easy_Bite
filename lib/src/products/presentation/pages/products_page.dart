@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:admin/core/widgets/drop_down/drop_down.dart';
 import 'package:admin/src/profile/data/models/profile_dto.dart';
 
@@ -48,13 +50,13 @@ class ProductsPage extends BaseBlocWidget<DoubleDataSuccess, ProductsCubit> {
       onDelete: (id) {
         bloc.deleteUser(id);
       },
-      onEdit: (params) {
+      onEdit: (user) {
         showAddUserDialog(
           context,
           (params) {
             bloc.updateUser(params);
           },
-          user: ProductDto(),
+          user: user,
           items: items,
         );
       },
@@ -68,8 +70,9 @@ showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
       TextEditingController(text: user?.itemName);
   TextEditingController priceController =
       TextEditingController(text: user?.price?.toString() ?? '');
-  TextEditingController descriptionController = TextEditingController();
-  String catId = user?.id ?? '';
+  TextEditingController descriptionController = TextEditingController(text: user?.description);
+  String catId = user?.category ?? '';
+  File image = File('');
   final strings = context.getStrings();
   showDialog(
       context: context,
@@ -79,8 +82,11 @@ showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
               mainAxisSize: MainAxisSize.min,
               children: [
                 EditProfileImage(
-                  image: user?.itemName ?? '',
-                  onSelectImage: (file) {},
+                  image: user?.image ?? '',
+                  onSelectImage: (file) {
+                    print('file: $file');
+                    image = file;
+                  },
                 ),
                 CustomTextField(
                   hintText: strings.product_name,
@@ -98,10 +104,11 @@ showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
                 ),
                 DropDownField(
                   hint: strings.categories,
-                    items: items,
-                    onChanged: (value) {
-                      catId = value.id ?? '';
-                    }),
+                  items: items,
+                  onChanged: (value) {
+                    catId = value.id ?? '';
+                  },
+                ),
               ],
             ),
             actions: [
@@ -113,11 +120,14 @@ showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
               ),
               TextButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   onAddUser(ProductDto(
-                    id: user?.id ?? catId,
+                    id: user?.id,
                     itemName: itemNameController.text,
                     price: int.parse(priceController.text),
                     description: descriptionController.text,
+                    image: image.path,
+                    category: catId,
                   ));
                 },
                 child: Text('Save'),

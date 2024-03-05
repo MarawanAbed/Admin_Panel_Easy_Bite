@@ -7,8 +7,9 @@ import '../../../main_index.dart';
 class EditProfileImage extends BaseStatelessWidget {
   final String image;
   final Function(File) onSelectImage;
+  final bool isCircle;
 
-  EditProfileImage({super.key, required this.image, required this.onSelectImage});
+  EditProfileImage({super.key, required this.image, required this.onSelectImage, this.isCircle = true});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,8 @@ class EditProfileImage extends BaseStatelessWidget {
           clipBehavior: Clip.antiAlias,
           margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
           decoration: BoxDecoration(
-            color: context.secondaryContainer,
-            shape: BoxShape.circle,
+            color: context.hintColor,
+            shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
           ),
           child: StreamBuilder<File?>(
               stream: _imageStream.stream,

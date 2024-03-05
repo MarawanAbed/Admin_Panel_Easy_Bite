@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         maxLines: maxLines ?? 1,
         keyboardType: isPassword ? TextInputType.visiblePassword : keyboardType,
-        style: context.labelSmall.copyWith(fontSize: 16),
+        style: context.bodySmall.copyWith(fontSize: 16),
         obscureText: isPassword,
         controller: controller,
         textInputAction: TextInputAction.next,

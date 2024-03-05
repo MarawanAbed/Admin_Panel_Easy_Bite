@@ -1,4 +1,5 @@
 import 'package:admin/src/profile/data/models/profile_dto.dart';
+import 'package:admin/src/users/presentation/widgets/quotation_item.dart';
 
 import '../../../../../core/components/base_widget_bloc.dart';
 import '../../../../core/widgets/radio/radio_grid_list.dart';
@@ -17,18 +18,17 @@ class PositionsPage extends BaseBlocWidget<DataSuccess<List<PositionDto>>, Posit
   }
 
   @override
-  String? title(BuildContext context) => strings.users;
+  String? title(BuildContext context) => strings.jobs;
 
   @override
   Widget build(BuildContext context) {
     return mainFrame(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingAddButton(
         onPressed: () {
           showAddJobDialog(context, (params) {
             bloc.createUser(params);
           });
         },
-        child: Icon(Icons.add),
       ),
       body: buildConsumer(context),
     );
@@ -42,9 +42,16 @@ class PositionsPage extends BaseBlocWidget<DataSuccess<List<PositionDto>>, Posit
         bloc.deleteUser(id);
       },
       onEdit: (params) {
-        bloc.updateUser(params);
+        showAddJobDialog(context, (params) {
+          bloc.updateUser(params);
+        }, user: params);
       },
     );
+  }
+
+  @override
+  void onSuccessDismissed() {
+    bloc.fetchInitialData();
   }
 }
 
@@ -79,6 +86,7 @@ showAddJobDialog(BuildContext context, Function(PositionDto) onAddUser, {Positio
       ),
       TextButton(
         onPressed: () {
+          Navigator.pop(context);
           onAddUser(PositionDto(
             id: user?.id,
             positionName: positionNameController.text,

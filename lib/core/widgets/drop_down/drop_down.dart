@@ -97,7 +97,7 @@ class DropDownField extends StatelessWidget {
           ),
           hint: Text(
             hint ?? '',
-            style: hintStyle ?? context.labelSmall.copyWith(fontSize: 16),
+            style: hintStyle ?? context.displaySmall.copyWith(fontSize: 16),
           ),
           items: items
               .map((item) => DropdownMenuItem<DropDownItem>(
@@ -126,7 +126,7 @@ class DropDownField extends StatelessWidget {
             height: 50,
           ),
           iconStyleData: IconStyleData(
-            icon: Icon(
+            icon: const Icon(
               Icons.keyboard_arrow_down_rounded,
             ),
             iconDisabledColor: context.disabledColor,

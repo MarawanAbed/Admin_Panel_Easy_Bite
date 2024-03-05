@@ -1,4 +1,6 @@
 
+import 'package:admin/src/users/presentation/widgets/quotation_item.dart';
+
 import '../../../../../core/components/base_widget_bloc.dart';
 import '../../../../core/widgets/drop_down/drop_down.dart';
 import '../../../../core/widgets/text-field/custom_text_field.dart';
@@ -22,13 +24,12 @@ class EmployeesPage extends BaseBlocWidget<DoubleDataSuccess, EmployeesCubit> {
   @override
   Widget build(BuildContext context) {
     return mainFrame(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingAddButton(
         onPressed: () {
           showAddUserDialog(context, (params) {
             bloc.createUser(params);
-          });
+          }, items: items);
         },
-        child: Icon(Icons.add),
       ),
       body: buildConsumer(context),
     );
@@ -39,11 +40,14 @@ class EmployeesPage extends BaseBlocWidget<DoubleDataSuccess, EmployeesCubit> {
     items = state.data2 ?? [];
     return EmployeesScreen(
       data: state.data1 ?? [],
+      positions: state.data2,
       onDelete: (id) {
         bloc.deleteUser(id);
       },
       onEdit: (params) {
-        bloc.updateUser(params);
+        showAddUserDialog(context, (params) {
+          bloc.updateUser(params);
+        }, user: params, items: items);
       },
     );
   }

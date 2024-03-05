@@ -121,7 +121,7 @@ class _PositionsDatasource implements PositionsDatasource {
     )
         .compose(
           _dio.options,
-          '/positions/update/${id}',
+          '/positions/DELETE/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

@@ -24,7 +24,7 @@ abstract class  PositionsDatasource{
   @GET('/positions')
   Future<List<PositionDto>> fetchPositions();
 
-  @DELETE('/positions/update/{id}')
+  @DELETE('/positions/DELETE/{id}')
   Future<String> deletePosition(@Path('id') id);
 
 }

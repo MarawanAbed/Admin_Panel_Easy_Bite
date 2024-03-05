@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:injectable/injectable.dart';
 
 import '../../data/data_sources/products_datasource.dart';
@@ -13,7 +15,14 @@ class ProductsUseCase {
   }
 
   Future<ProductDto> createUser(ProductDto params) async {
-    return  await apiProvider.createProduct(params);
+    print('params: ${params.toJson()}');
+    return  await apiProvider.createProduct(
+      params.itemName!,
+      params.price ?? 0,
+      params.description!,
+      File(params.image!),
+      params.category!,
+    );
   }
 
   Future<String> deleteUser(id) async {

@@ -32,10 +32,10 @@ class CustomRichText extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: '$label ',
+            text: '$label: ',
             style: labelStyle ??
-                context.textTheme.labelSmall!.copyWith(
-                  color: labelColor ?? Colors.black,
+                context.textTheme.displaySmall!.copyWith(
+                  color: labelColor,
                 ),
           ),
           TextSpan(

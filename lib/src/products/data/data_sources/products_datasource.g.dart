@@ -21,17 +21,46 @@ class _ProductsDatasource implements ProductsDatasource {
   String? baseUrl;
 
   @override
-  Future<ProductDto> createProduct(ProductDto params) async {
+  Future<ProductDto> createProduct(
+    String itemName,
+    int price,
+    String description,
+    File image,
+    String category,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(params.toJson());
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'itemName',
+      itemName,
+    ));
+    _data.fields.add(MapEntry(
+      'price',
+      price.toString(),
+    ));
+    _data.fields.add(MapEntry(
+      'description',
+      description,
+    ));
+    _data.files.add(MapEntry(
+      'image',
+      MultipartFile.fromFileSync(
+        image.path,
+        filename: image.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'category',
+      category,
+    ));
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProductDto>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,
@@ -121,7 +150,7 @@ class _ProductsDatasource implements ProductsDatasource {
     )
         .compose(
           _dio.options,
-          '/items/update/${id}',
+          '/items/delete/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

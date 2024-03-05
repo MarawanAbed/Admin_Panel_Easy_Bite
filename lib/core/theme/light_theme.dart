@@ -2,25 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:admin/core/utils/colors_manager.dart';
 
-const Color primaryColor = Color(0xff69452E);
+const Color primaryColor = Color(0xffFF8303);
 const Color lighterDarkColor = Color(0xff69452E);
 const secondaryColor = Color(0xff0083DA);
 const Color kGreyColor = Color(0xff818185);
 const String fontBold = 'Cairo-Bold';
 const String fontMedium = 'Cairo-Medium';
 const String fontRegular = 'Cairo-Regular';
+const Color kWhite = Color(0xffFFFFFF);
 
 
 final lightTheme = ThemeData(
   primaryColor: primaryColor,
   brightness: Brightness.light,
   primaryColorDark: const Color(0xff191919),
-  scaffoldBackgroundColor: const Color(0xffF9F0E1),
+  scaffoldBackgroundColor: const Color(0xffF3EDE2),
   hintColor: const Color(0xffF7F6F6),
-  cardColor: const Color(0xffffffff),
+  cardColor: kWhite,
   // iconTheme: const IconThemeData(
   //   color: kYellowColor,
   // ),
+  dialogTheme: const DialogTheme(
+    backgroundColor: kWhite,
+    titleTextStyle: TextStyle(
+      fontSize: 18,
+      fontFamily: fontBold,
+      fontWeight: FontWeight.w700,
+      color: Colors.black,
+    ),
+  ),
+  radioTheme: RadioThemeData(
+    fillColor: MaterialStateProperty.all(primaryColor),
+  ),
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: Colors.green,
     //   primaryColorDark: const Color(0xFF232323),
@@ -35,17 +48,17 @@ final lightTheme = ThemeData(
   ),
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: secondaryColor,
+      statusBarColor: primaryColor,
       statusBarIconBrightness: Brightness.light,
     ),
-    color: primaryColor,
+    color: kWhite,
     elevation: 0,
     foregroundColor: Color(0xffF9F0E1),
     titleTextStyle: TextStyle(
       fontSize: 16,
       fontFamily: fontBold,
       fontWeight: FontWeight.w700,
-      color: Color(0xffF9F0E1),
+      color: primaryColor,
     ),
   //  backgroundColor: secondaryColor,
     centerTitle: true,
@@ -53,9 +66,21 @@ final lightTheme = ThemeData(
   inputDecorationTheme: const InputDecorationTheme(
     filled: true,
      fillColor: Color(0xffEBDFCF),
+
     hintStyle: TextStyle(
       fontSize: 14,
       fontFamily: 'Cairo-Regular',
+    ),
+  ),
+  textButtonTheme: TextButtonThemeData(
+
+    style: TextButton.styleFrom(
+    //  primary: primaryColor,
+      textStyle: const TextStyle(
+        fontSize: 16,
+        fontFamily: fontBold,
+        fontWeight: FontWeight.w700,
+      ),
     ),
   ),
   fontFamily: fontBold,

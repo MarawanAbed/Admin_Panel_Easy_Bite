@@ -31,7 +31,7 @@ class PrimaryButton extends StatelessWidget {
           ),
           fixedSize: Size(width ?? MediaQuery.of(context).size.width, height!),
         ),
-        child: !isLoading ? FittedBox(child: Text(title!, style: style ?? context.labelLarge)) : const CircularProgressIndicator(color: Colors.white),
+        child: !isLoading ? Text(title!, style: style ?? context.labelLarge) : const CircularProgressIndicator(color: Colors.white),
       ),
     );
   }
