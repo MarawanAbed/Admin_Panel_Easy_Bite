@@ -1,54 +1,44 @@
 import 'package:admin/models/RecentFile.dart';
+import 'package:admin/src/main_index.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
+import '../../widgets/order_item.dart';
+import 'header.dart';
 
-class RecentFiles extends StatelessWidget {
-  const RecentFiles({
+class RecentOrders extends StatelessWidget {
+  const RecentOrders({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Recent Files",
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: DataTable(
-              columnSpacing: defaultPadding,
-              // minWidth: 600,
-              columns: [
-                DataColumn(
-                  label: Text("File Name"),
-                ),
-                DataColumn(
-                  label: Text("Date"),
-                ),
-                DataColumn(
-                  label: Text("Size"),
-                ),
-              ],
-              rows: List.generate(
-                demoRecentFiles.length,
-                (index) => recentFileDataRow(demoRecentFiles[index]),
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Recent Orders",
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        const SizedBox(height: 5),
+        const SearchField(),
+        const SizedBox(height: 10),
+        Expanded(
+          child: GridView.builder(
+            itemCount: 5,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 360,
+              crossAxisSpacing: defaultPadding,
+              mainAxisSpacing: defaultPadding,
+              mainAxisExtent: 310,
             ),
+            itemBuilder: (context, index) =>
+                Orders(),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

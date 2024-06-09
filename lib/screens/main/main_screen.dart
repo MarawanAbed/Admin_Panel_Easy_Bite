@@ -15,7 +15,7 @@ import 'components/side_menu.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    PageController _pageController = PageController(initialPage: 2);
+    PageController _pageController = PageController(initialPage: 0);
     List<Widget> children = [
       DashboardPage(),
       CategoriesPage(),
@@ -39,7 +39,7 @@ class MainScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // We want this side menu only for large screen
-            if (!Responsive.isDesktop(context))
+           // if (Responsive.isDesktop(context))
               Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen

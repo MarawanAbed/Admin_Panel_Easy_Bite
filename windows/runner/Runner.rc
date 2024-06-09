@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.easy_bite" "\0"
-            VALUE "FileDescription", "admin_panel" "\0"
+            VALUE "FileDescription", "Easy Bite" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "admin_panel" "\0"
+            VALUE "InternalName", "Easy Bite" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.easy_bite. All rights reserved." "\0"
-            VALUE "OriginalFilename", "admin_panel.exe" "\0"
-            VALUE "ProductName", "admin_panel" "\0"
+            VALUE "OriginalFilename", "easyBite.exe" "\0"
+            VALUE "ProductName", "Easy Bite" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

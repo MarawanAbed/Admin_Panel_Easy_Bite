@@ -50,6 +50,7 @@ final lightTheme = ThemeData(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: primaryColor,
       statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: primaryColor,
     ),
     color: kWhite,
     elevation: 0,

@@ -1,13 +1,11 @@
-import 'package:admin/core/assets/app_icons.dart';
-import 'package:admin/core/extensions/extensions.dart';
 import 'package:admin/core/theme/light_theme.dart';
 import 'package:admin/src/main_index.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../responsive.dart';
 
 class SideMenu extends StatelessWidget {
   final Function(double) onNavigate;
+
   const SideMenu({
     Key? key,
     required this.onNavigate,
@@ -15,7 +13,9 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('SideMenu build');
     final strings = context.strings;
+    bool isMobile = Responsive.isDesktop(context);
     return Drawer(
       backgroundColor: Colors.white,
       shadowColor: Colors.white,
@@ -26,29 +26,33 @@ class SideMenu extends StatelessWidget {
       ),
       child: ListView(
         children: [
-          DrawerHeader(
-            child: Image.asset("assets/images/logo.png"),
+          const DrawerHeader(
+            child: AppIcon(icon: "assets/logo/full_logo.svg"),
           ),
           DrawerListTile(
             title: strings.dashboard,
             svgSrc: "assets/icons/menu_tran.svg",
-            press: ()=> onNavigate(0),
+            press: () => onNavigate(0),
+            isIcon: isMobile,
           ),
           DrawerListTile(
             title: strings.categories,
             svgSrc: "assets/icons/category.svg",
-            press: ()=> onNavigate(1),
+            press: () => onNavigate(1),
+            isIcon: isMobile,
           ),
           DrawerListTile(
             title: strings.products,
             svgSrc: "assets/icons/menu_task.svg",
-            press: ()=> onNavigate(2),
-              iconSize: 18,
+            press: () => onNavigate(2),
+            iconSize: 18,
+            isIcon: isMobile,
           ),
           DrawerListTile(
             title: strings.jobs,
             svgSrc: "assets/icons/jobs.svg",
-            press: ()=> onNavigate(3),
+            press: () => onNavigate(3),
+            isIcon: isMobile,
           ),
           // DrawerListTile(
           //   title: "Store",
@@ -58,17 +62,20 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: strings.employees,
             svgSrc: "assets/icons/menu_profile.svg",
-            press: ()=> onNavigate(4),
+            press: () => onNavigate(4),
+            isIcon: isMobile,
           ),
           DrawerListTile(
             title: strings.users,
             svgSrc: "assets/icons/menu_profile.svg",
-            press: ()=> onNavigate(5),
+            press: () => onNavigate(5),
+            isIcon: isMobile,
           ),
           DrawerListTile(
             title: strings.settings,
             svgSrc: "assets/icons/menu_setting.svg",
-            press: ()=> onNavigate(6),
+            press: () => onNavigate(6),
+            isIcon: isMobile,
           ),
         ],
       ),
@@ -77,6 +84,12 @@ class SideMenu extends StatelessWidget {
 }
 
 class DrawerListTile extends StatelessWidget {
+  final String title, svgSrc;
+  final VoidCallback press;
+  final double iconSize;
+  final EdgeInsetsGeometry? padding;
+  final bool isIcon;
+
   const DrawerListTile({
     Key? key,
     // For selecting those three line once press "Command+D"
@@ -85,12 +98,8 @@ class DrawerListTile extends StatelessWidget {
     required this.press,
     this.iconSize = 20,
     this.padding,
+    this.isIcon = false,
   }) : super(key: key);
-
-  final String title, svgSrc;
-  final VoidCallback press;
-  final double iconSize;
-  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -104,24 +113,26 @@ class DrawerListTile extends StatelessWidget {
             Expanded(
               flex: 1,
               child: SvgPicture.asset(
-              svgSrc,
-              // colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
-              color: primaryColor,
+                svgSrc,
+                // colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
+                color: primaryColor,
 
-              height: iconSize,
-              width: iconSize,
-                    ),
-            ),
-            10.pw,
-            Expanded(
-              flex: 5,
-              // fit: BoxFit.scaleDown,
-              // alignment: AlignmentDirectional.centerStart,
-              child: Text(
-                title,
-                // style: TextStyle(color: Colors.white54),
+                height: iconSize,
+                width: iconSize,
               ),
             ),
+            if (isIcon) ...[
+              10.pw,
+              Expanded(
+                flex: 5,
+                // fit: BoxFit.scaleDown,
+                // alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  title,
+                  // style: TextStyle(color: Colors.white54),
+                ),
+              ),
+            ]
           ],
         ),
       ),
