@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "363306107956",
+    "project_id": "easy-bite-4d3c6",
+    "storage_bucket": "easy-bite-4d3c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363306107956:android:0bb1be0f24c48b3f117661",
+        "android_client_info": {
+          "package_name": "com.easy_bite.admin_panel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJpPlwUHR64aZ3IvzmTYRMgId7X96W6HY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

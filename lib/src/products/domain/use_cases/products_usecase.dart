@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/firebase/chat_firebase_service.dart';
 import '../../data/data_sources/products_datasource.dart';
 import '../../data/models/product_dto.dart';
 
@@ -16,12 +17,13 @@ class ProductsUseCase {
 
   Future<ProductDto> createUser(ProductDto params) async {
     print('params: ${params.toJson()}');
+    String file = await ChatFirebaseService.saveImage(File(params.image!));
     return  await apiProvider.createProduct(
       params.itemName!,
       params.price ?? 0,
-      params.description!,
+      file,
       File(params.image!),
-      params.category!,
+      params.categoryId!,
     );
   }
 

@@ -118,11 +118,15 @@ showAddUserDialog(BuildContext context, Function(EmployeeDto) onAddUser,
               ),
               TextButton(
                 onPressed: () {
+
                   onAddUser(EmployeeDto(
-                      // userName: _nameController.text,
-                      // email: _emailController.text,
-                      // password: _passwordController.text,
-                      // isAdmin: isAdmin,
+                      employeeName: nameController.text,
+                      email: emailController.text,
+                      address: addressController.text,
+                      birthDate: birthDateController.text,
+                      hireDate: hireDateController.text,
+                      terminationDate: terminationDateController.text,
+                      position: positionId,
                       ));
                 },
                 child: Text('Save'),

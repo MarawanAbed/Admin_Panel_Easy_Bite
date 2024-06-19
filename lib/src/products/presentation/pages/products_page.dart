@@ -71,7 +71,7 @@ showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
   TextEditingController priceController =
       TextEditingController(text: user?.price?.toString() ?? '');
   TextEditingController descriptionController = TextEditingController(text: user?.description);
-  String catId = user?.category ?? '';
+  String catId = user?.category?.id ?? '';
   File image = File('');
   final strings = context.getStrings();
   showDialog(
@@ -127,7 +127,7 @@ showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
                     price: int.parse(priceController.text),
                     description: descriptionController.text,
                     image: image.path,
-                    category: catId,
+                    categoryId: catId,
                   ));
                 },
                 child: Text('Save'),

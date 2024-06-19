@@ -23,6 +23,7 @@ class ProductsCubit extends BaseCubit {
       emit(DoubleDataSuccess(data1: response, data2: items));
     } catch (e) {
       emit(DataFailed(e));
+      rethrow;
     }
   }
 

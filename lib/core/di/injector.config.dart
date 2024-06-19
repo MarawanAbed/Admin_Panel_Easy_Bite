@@ -13,8 +13,8 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i21;
 
-import '../../screens/bloc/dashboard_bloc.dart' as _i31;
-import '../../screens/data/data_sources/dashboard_datasource.dart' as _i10;
+import '../../screens/bloc/dashboard_bloc.dart' as _i30;
+import '../../screens/data/data_sources/dashboard_datasource.dart' as _i9;
 import '../../src/auth/data/data_sources/auth_datasource.dart' as _i3;
 import '../../src/auth/data/data_sources/forgot_password_datasource.dart'
     as _i14;
@@ -31,9 +31,10 @@ import '../../src/categories/data/data_sources/categories_datasource.dart'
     as _i7;
 import '../../src/categories/domain/use_cases/categories_usecase.dart' as _i8;
 import '../../src/categories/presentation/bloc/categories_bloc.dart' as _i29;
-import '../../src/dashboard/data/data_sources/dashboard_datasource.dart' as _i9;
+import '../../src/dashboard/data/data_sources/dashboard_datasource.dart'
+    as _i10;
 import '../../src/dashboard/domain/use_cases/dashboard_usecase.dart' as _i11;
-import '../../src/dashboard/presentation/bloc/dashboard_bloc.dart' as _i30;
+import '../../src/dashboard/presentation/bloc/dashboard_bloc.dart' as _i31;
 import '../../src/employees/data/data_sources/employees_datasource.dart'
     as _i12;
 import '../../src/employees/domain/use_cases/employees_usecase.dart' as _i13;
@@ -79,7 +80,7 @@ Future<_i1.GetIt> $initGetIt(
   gh.factory<_i10.DashboardDatasource>(
       () => _i10.DashboardDatasource(gh<_i4.Dio>()));
   gh.factory<_i11.DashboardUseCase>(
-      () => _i11.DashboardUseCase(gh<_i9.DashboardDatasource>()));
+      () => _i11.DashboardUseCase(gh<_i10.DashboardDatasource>()));
   gh.factory<_i12.EmployeesDatasource>(
       () => _i12.EmployeesDatasource(gh<_i4.Dio>()));
   gh.factory<_i13.EmployeesUseCase>(
@@ -112,9 +113,9 @@ Future<_i1.GetIt> $initGetIt(
   gh.factory<_i29.CategoriesCubit>(
       () => _i29.CategoriesCubit(gh<_i8.CategoriesUseCase>()));
   gh.factory<_i30.DashboardCubit>(
-      () => _i30.DashboardCubit(gh<_i11.DashboardUseCase>()));
+      () => _i30.DashboardCubit(gh<_i9.DashboardDatasource>()));
   gh.factory<_i31.DashboardCubit>(
-      () => _i31.DashboardCubit(gh<_i10.DashboardDatasource>()));
+      () => _i31.DashboardCubit(gh<_i11.DashboardUseCase>()));
   gh.factory<_i32.EmployeesCubit>(() => _i32.EmployeesCubit(
         gh<_i13.EmployeesUseCase>(),
         gh<_i17.PositionsUseCase>(),

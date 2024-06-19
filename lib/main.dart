@@ -4,9 +4,11 @@ import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/core/theme/dark_theme.dart';
 import 'package:admin/core/theme/light_theme.dart';
 import 'package:admin/src/main_index.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 import 'core/network/base_client.dart';
+import 'firebase_options.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -24,7 +26,9 @@ SystemChrome.setSystemUIOverlayStyle(
 await configureDependencies();
 // Initialize FFI
 // databaseFactory = databaseFactoryFfiWeb;
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 ServicesLocator().init();
 injector.registerSingleton(ClientCreator(
     interceptor: HeaderInterceptor(
