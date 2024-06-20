@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:admin/src/categories/data/models/category_dto.dart';
 import 'package:admin/src/profile/data/models/profile_dto.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/firebase/chat_firebase_service.dart';
 import '../../data/data_sources/categories_datasource.dart';
 import '../../data/models/create_category_params.dart';
 
@@ -15,6 +18,12 @@ class CategoriesUseCase {
   }
 
   Future<CategoryDto> createUser(CreateCategoryParams params) async {
+    String file = await ChatFirebaseService.handleImage(
+      params.id!,
+      file: File(params.image!),
+      image: params.image!,
+    ) ?? '';
+    params.image = file;
     return  await apiProvider.createCategory(params);
   }
 
@@ -23,6 +32,12 @@ class CategoriesUseCase {
   }
 
   Future<CategoryDto> updateUser(CreateCategoryParams params) async {
+    String file = await ChatFirebaseService.handleImage(
+      params.id!,
+      file: File(params.image!),
+      image: params.image!,
+    ) ?? '';
+    params.image = file;
     return  await apiProvider.updateCategory(params.id, params);
   }
 

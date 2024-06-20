@@ -14,8 +14,10 @@ class CreateUserParams {
   String? password;
   @JsonKey(name: 'is_admin')
   bool? isAdmin;
+  @JsonKey(name: 'image')
+  String? image;
 
-  CreateUserParams({this.id, this.userName, this.email, this.password, this.isAdmin});
+  CreateUserParams({this.id, this.userName, this.email, this.password, this.isAdmin, this.image});
 
    factory CreateUserParams.fromJson(Map<String, dynamic> json) => _$CreateUserParamsFromJson(json);
 

@@ -8,8 +8,10 @@ class CategoryDto {
   String? id;
   @JsonKey(name: 'categoryName')
   String? categoryName;
+  @JsonKey(name: 'image')
+  String? image;
 
-  CategoryDto({this.id, this.categoryName});
+  CategoryDto({this.id, this.categoryName, this.image});
 
    factory CategoryDto.fromJson(Map<String, dynamic> json) => _$CategoryDtoFromJson(json);
 

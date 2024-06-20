@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/firebase/chat_firebase_service.dart';
 import '../../data/data_sources/employees_datasource.dart';
 import '../../data/models/employee_dto.dart';
 
@@ -13,6 +16,12 @@ class EmployeesUseCase {
   }
 
   Future<EmployeeDto> createUser(EmployeeDto params) async {
+    String file = await ChatFirebaseService.handleImage(
+      params.id!,
+      file: File(params.image!),
+      image: params.image!,
+    ) ?? '';
+    params.image = file;
     return  await apiProvider.createEmployee(params);
   }
 
@@ -21,6 +30,12 @@ class EmployeesUseCase {
   }
 
   Future<EmployeeDto> updateUser(EmployeeDto params) async {
+    String file = await ChatFirebaseService.handleImage(
+      params.id!,
+      file: File(params.image!),
+      image: params.image!,
+    ) ?? '';
+    params.image = file;
     return  await apiProvider.updateEmployee(params.id, params);
   }
 

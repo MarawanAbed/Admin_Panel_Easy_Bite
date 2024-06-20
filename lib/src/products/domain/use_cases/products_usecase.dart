@@ -17,7 +17,11 @@ class ProductsUseCase {
 
   Future<ProductDto> createUser(ProductDto params) async {
     print('params: ${params.toJson()}');
-    String file = await ChatFirebaseService.saveImage(File(params.image!));
+    String file = await ChatFirebaseService.handleImage(
+      params.id!,
+      file: File(params.image!),
+      image: params.image!,
+    ) ?? '';
     return  await apiProvider.createProduct(
       params.itemName!,
       params.price ?? 0,
@@ -32,6 +36,12 @@ class ProductsUseCase {
   }
 
   Future<ProductDto> updateUser(ProductDto params) async {
+    String file = await ChatFirebaseService.handleImage(
+      params.id!,
+      file: File(params.image!),
+      image: params.image!,
+    ) ?? '';
+    params.image = file;
     return  await apiProvider.updateProduct(params.id, params);
   }
 

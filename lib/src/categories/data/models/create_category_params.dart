@@ -8,8 +8,10 @@ class CreateCategoryParams {
   String? id;
   @JsonKey(name: 'categoryName')
   String? categoryName;
+  @JsonKey(name: 'image')
+  String? image;
 
-  CreateCategoryParams({this.id, this.categoryName});
+  CreateCategoryParams({this.id, this.categoryName, this.image});
 
    factory CreateCategoryParams.fromJson(Map<String, dynamic> json) => _$CreateCategoryParamsFromJson(json);
 

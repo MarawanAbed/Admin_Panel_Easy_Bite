@@ -45,7 +45,7 @@ class ChatFirebaseService {
   }
 
   // update image in storage
-  static Future<void> updateImage(File file, String imageUrl) async {
+  static Future<String> updateImage(File file, String imageUrl) async {
     try {
       final ext = file.path.split('.').last;
       final ref = storage.ref().child(
@@ -57,8 +57,24 @@ class ChatFirebaseService {
       });
       final newImageUrl = await ref.getDownloadURL();
       print('newImageUrl $newImageUrl');
+      return newImageUrl;
     } on Exception catch (e) {
       rethrow;
+    }
+  }
+
+  static Future<String?> handleImage(String? id, {
+    String? image,
+    File? file,
+  }) async {
+    if (id == null) {
+      return await saveImage(file!);
+    } else {
+      if (file == null) {
+        return image;
+      } else {
+        return await updateImage(file, image!);
+      }
     }
   }
 }

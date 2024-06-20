@@ -24,8 +24,10 @@ class ProfileDto {
   int? v;
   @JsonKey(name: 'accessToken')
   String? accessToken;
+  @JsonKey(name: 'image')
+  String? image;
 
-  ProfileDto({this.id, this.userName, this.email, this.isAdmin, this.isChef,  this.password, this.createdAt, this.updatedAt, this.v, this.accessToken});
+  ProfileDto({this.id, this.userName, this.email, this.isAdmin, this.isChef,  this.password, this.createdAt, this.updatedAt, this.v, this.accessToken, this.image});
 
    factory ProfileDto.fromJson(Map<String, dynamic> json) => _$ProfileDtoFromJson(json);
 

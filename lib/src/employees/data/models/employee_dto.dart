@@ -20,6 +20,8 @@ class EmployeeDto {
   final String? hireDate;
   @JsonKey(name: "terminationDate")
   final String? terminationDate;
+  @JsonKey(name: 'image')
+  String? image;
 
   EmployeeDto ({
     this.id,
@@ -30,6 +32,7 @@ class EmployeeDto {
     this.birthDate,
     this.hireDate,
     this.terminationDate,
+    this.image,
   });
 
   factory EmployeeDto.fromJson(Map<String, dynamic> json) {
