@@ -13,6 +13,7 @@ CreateUserParams _$CreateUserParamsFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       password: json['password'] as String?,
       isAdmin: json['is_admin'] as bool?,
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$CreateUserParamsToJson(CreateUserParams instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$CreateUserParamsToJson(CreateUserParams instance) =>
       'email': instance.email,
       'password': instance.password,
       'is_admin': instance.isAdmin,
+      'image': instance.image,
     };

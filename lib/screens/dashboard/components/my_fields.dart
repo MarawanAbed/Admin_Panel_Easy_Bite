@@ -1,28 +1,46 @@
 import 'package:admin/models/MyFiles.dart';
-import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../core/commen/common_state.dart';
+import '../../data/models/order_statistics.dart';
 import 'file_info_card.dart';
 
 class OrdersStatistics extends StatelessWidget {
+  final StreamStateInitial<OrderStatistics?> ordersStatistics;
   const OrdersStatistics({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.ordersStatistics,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return  GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: demoMyFiles.length,
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 250,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-        mainAxisExtent: 110,
-      ),
-      itemBuilder: (context, index) => FileInfoCard(info: demoMyFiles[index]),
+    return StreamBuilder<OrderStatistics?>(
+      stream: ordersStatistics.stream,
+      builder: (context, snapshot) {
+        OrderStatistics? orderStatistics = snapshot.data;
+        return Wrap(
+          spacing: defaultPadding,
+          runSpacing: defaultPadding,
+          children: [
+            FileInfoCard(
+              title: 'Today Orders',
+              totalOrders: orderStatistics?.today?.totalOrders,
+              totalSales: orderStatistics?.today?.totalSales,
+            ),
+            FileInfoCard(
+              title: 'Monthly Orders',
+              totalOrders: orderStatistics?.month?.totalOrders,
+              totalSales: orderStatistics?.month?.totalSales,
+            ),
+            FileInfoCard(
+              title: 'Yearly Orders',
+              totalOrders: orderStatistics?.year?.totalOrders,
+              totalSales: orderStatistics?.year?.totalSales,
+            ),
+          ],
+        );
+      }
     );
   }
 }

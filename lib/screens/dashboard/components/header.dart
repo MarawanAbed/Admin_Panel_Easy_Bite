@@ -1,5 +1,9 @@
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/core/extensions/extensions.dart';
+import 'package:admin/core/routes/navigator.dart';
+import 'package:admin/core/routes/routes.dart';
+import 'package:admin/core/utils/helper_methods.dart';
+import 'package:admin/core/widgets/images/image_network.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -46,27 +50,40 @@ class ProfileCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         border: Border.all(color: Colors.white10),
       ),
-      child: Row(
-        children: [
-          Image.asset(
-            "assets/images/profile_pic.png",
-            height: 38,
-          ),
-          if (!Responsive.isMobile(context))
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Angelina Jolie"),
-            ),
-          const Icon(Icons.keyboard_arrow_down),
-        ],
+      child: FutureBuilder(
+        future: HelperMethods.getProfile(),
+        builder: (context, snapshot) {
+          return Row(
+            children: [
+              ImageNetworkCircle(
+                image: snapshot.data?.image ?? '',
+                height: 38,
+              ),
+              if (!Responsive.isMobile(context))
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                  child: Text(snapshot.data?.userName ?? ''),
+                ),
+              IconButton(
+                icon: const Icon(Icons.logout),
+                onPressed: () async {
+                  await HelperMethods.removeProfile();
+                  Navigators.pushNamedAndRemoveUntil(Routes.loginPage);
+                },
+              )
+            ],
+          );
+        }
       ),
     );
   }
 }
 
 class SearchField extends StatelessWidget {
+  final void Function(String)? onChanged;
   const SearchField({
     Key? key,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -94,6 +111,7 @@ class SearchField extends StatelessWidget {
           ),
         ),
       ),
+      onChanged: onChanged,
     );
   }
 }

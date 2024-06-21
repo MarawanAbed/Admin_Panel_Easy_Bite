@@ -17,6 +17,7 @@ ProfileDto _$ProfileDtoFromJson(Map<String, dynamic> json) => ProfileDto(
       updatedAt: json['updatedAt'] as String?,
       v: json['__v'] as int?,
       accessToken: json['accessToken'] as String?,
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$ProfileDtoToJson(ProfileDto instance) =>
@@ -31,4 +32,5 @@ Map<String, dynamic> _$ProfileDtoToJson(ProfileDto instance) =>
       'updatedAt': instance.updatedAt,
       '__v': instance.v,
       'accessToken': instance.accessToken,
+      'image': instance.image,
     };

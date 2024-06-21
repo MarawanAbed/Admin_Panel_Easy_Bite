@@ -1,6 +1,6 @@
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/dashboard_screen.dart';
+import 'package:admin/src/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:admin/src/categories/presentation/pages/categories_page.dart';
 import 'package:admin/src/positions/presentation/pages/positions_page.dart';
 import 'package:admin/src/users/presentation/pages/users_page.dart';

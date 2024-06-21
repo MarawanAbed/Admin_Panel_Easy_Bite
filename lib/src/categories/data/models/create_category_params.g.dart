@@ -11,6 +11,7 @@ CreateCategoryParams _$CreateCategoryParamsFromJson(
     CreateCategoryParams(
       id: json['id'] as String?,
       categoryName: json['categoryName'] as String?,
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$CreateCategoryParamsToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$CreateCategoryParamsToJson(
     <String, dynamic>{
       'id': instance.id,
       'categoryName': instance.categoryName,
+      'image': instance.image,
     };

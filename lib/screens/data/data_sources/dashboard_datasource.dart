@@ -16,7 +16,7 @@ abstract class  DashboardDatasource{
   @factoryMethod
   factory DashboardDatasource(Dio dio) = _DashboardDatasource;
 
-  @POST('/orders/statistics')
+  @GET('/orders/statistics')
   Future<OrderStatistics> ordersStatistics();
 
   @GET('/orders')

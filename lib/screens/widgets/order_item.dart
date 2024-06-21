@@ -1,54 +1,29 @@
-
 import 'package:admin/core/extensions/dimension.dart';
 import 'package:admin/core/widgets/buttons/primary_button.dart';
 import 'package:admin/src/main_index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 import '../../constants.dart';
-
-class OrderBody extends StatelessWidget {
-  const OrderBody({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Orders',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              '11:29 AM',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 50),
-        Orders(),
-      ],
-    );
-  }
-}
+import '../data/models/order_dto.dart';
 
 class Orders extends StatelessWidget {
+  final OrderDto order;
+  final int index;
+
   const Orders({
     super.key,
+    required this.order,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
+    String date = order.createdAt ?? '';
+    String currentFormat = DateFormat('yyyy-MM-dd').format(DateTime.parse(date));
+    String newFormat = DateFormat('dd-MM-yyyy hh:mm a').format(DateTime.parse(currentFormat));
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
@@ -58,42 +33,42 @@ class Orders extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FittedBox(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Order:351',
-                      style: TextStyle(
+                    Text(
+                      'Order: $index',
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const Text(
-                      'User: Ahmed Mohamed',
-                      style: TextStyle(
+                    Text(
+                      'User: ${order.user?.userName ?? ''}',
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     )
                   ],
                 ),
-                const Text(
-                  '11:29 AM',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+              ),
+              Expanded(
+                child: Text(
+                  newFormat,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: Colors.grey),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
           SizedBox(
             height: 10.h,
@@ -101,38 +76,20 @@ class Orders extends StatelessWidget {
           const Divider(
             color: Colors.grey,
           ),
-          SizedBox(
-            height: 10.h,
+          Column(
+            children: order.items
+                    ?.map((e) => Column(
+                          children: [
+                            Males(
+                              quantity: e.quantity.toString() ?? '',
+                              name: e.item?.itemName ?? '',
+                            ),
+                          ],
+                        ))
+                    .toList() ??
+                [],
           ),
-          const Males(
-            quantity: '1',
-            name: 'Chicken Shawarma',
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          const Males(
-            quantity: '1',
-            name: 'Chicken Shawarma',
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          const Males(
-            quantity: '1',
-            name: 'Chicken Shawarma',
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          const Males(
-            quantity: '1',
-            name: 'Chicken Shawarma',
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: double.infinity,
             height: 40,
