@@ -121,7 +121,7 @@ class _CategoriesDatasource implements CategoriesDatasource {
     )
         .compose(
           _dio.options,
-          '/users/delete/${id}',
+          '/categories/delete/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

@@ -76,6 +76,7 @@ abstract class BaseCubit extends Cubit<DataState>{
     } catch (e) {
       print(e);
       emit(FailureStateListener(e));
+      rethrow;
     }
   }
 

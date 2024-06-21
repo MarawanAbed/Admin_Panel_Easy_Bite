@@ -1,16 +1,19 @@
+import 'dart:io';
 
+import 'package:admin/src/employees/data/models/employee_params.dart';
 import 'package:admin/src/users/presentation/widgets/quotation_item.dart';
 
 import '../../../../../core/components/base_widget_bloc.dart';
 import '../../../../core/widgets/drop_down/drop_down.dart';
 import '../../../../core/widgets/text-field/custom_text_field.dart';
 import '../../../main_index.dart';
+import '../../../products/presentation/widgets/edit_profile_image.dart';
 import '../../data/models/employee_dto.dart';
 import '../bloc/employees_bloc.dart';
 import 'employees_screen.dart';
 
 class EmployeesPage extends BaseBlocWidget<DoubleDataSuccess, EmployeesCubit> {
-  EmployeesPage({Key? key}) : super(key: key);
+  EmployeesPage({super.key});
 
   @override
   void loadInitialData(BuildContext context) {
@@ -53,7 +56,7 @@ class EmployeesPage extends BaseBlocWidget<DoubleDataSuccess, EmployeesCubit> {
   }
 }
 
-showAddUserDialog(BuildContext context, Function(EmployeeDto) onAddUser,
+showAddUserDialog(BuildContext context, Function(EmployeeParams) onAddUser,
     {EmployeeDto? user, List<DropDownItem> items = const []}) {
   TextEditingController nameController =
       TextEditingController(text: user?.employeeName);
@@ -68,8 +71,9 @@ showAddUserDialog(BuildContext context, Function(EmployeeDto) onAddUser,
   TextEditingController terminationDateController =
       TextEditingController(text: user?.terminationDate);
   TextEditingController passwordController = TextEditingController();
-  String positionId = user?.position ?? '';
+  String positionId = user?.position?.id ?? '';
   final strings = context.getStrings();
+  File imageFile = File('');
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -77,6 +81,12 @@ showAddUserDialog(BuildContext context, Function(EmployeeDto) onAddUser,
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                EditProfileImage(
+                  image: user?.image ?? '',
+                  onSelectImage: (file) {
+                    imageFile = file;
+                  },
+                ),
                 CustomTextField(
                   hintText: strings.employee_name,
                   controller: nameController,
@@ -102,11 +112,12 @@ showAddUserDialog(BuildContext context, Function(EmployeeDto) onAddUser,
                   controller: addressController,
                 ),
                 DropDownField(
-                    hint: strings.positions,
-                    items: items,
-                    onChanged: (value) {
-                      positionId = value.id ?? '';
-                    }),
+                  hint: strings.positions,
+                  items: items,
+                  onChanged: (value) {
+                    positionId = value.id ?? '';
+                  },
+                ),
               ],
             ),
             actions: [
@@ -114,22 +125,24 @@ showAddUserDialog(BuildContext context, Function(EmployeeDto) onAddUser,
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () {
-
-                  onAddUser(EmployeeDto(
-                      employeeName: nameController.text,
-                      email: emailController.text,
-                      address: addressController.text,
-                      birthDate: birthDateController.text,
-                      hireDate: hireDateController.text,
-                      terminationDate: terminationDateController.text,
-                      position: positionId,
-                      ));
+                  Navigator.pop(context);
+                  onAddUser(EmployeeParams(
+                    employeeName: nameController.text,
+                    email: emailController.text,
+                    address: addressController.text,
+                    birthDate: birthDateController.text,
+                    hireDate: hireDateController.text,
+                    terminationDate: terminationDateController.text,
+                    position: positionId,
+                    image: imageFile.path.isEmpty ? user?.image : imageFile.path,
+                    id: user?.id,
+                  ));
                 },
-                child: Text('Save'),
+                child: const Text('Save'),
               ),
             ],
           ));

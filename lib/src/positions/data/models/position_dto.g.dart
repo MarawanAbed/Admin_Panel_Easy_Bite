@@ -8,13 +8,13 @@ part of 'position_dto.dart';
 
 PositionDto _$PositionDtoFromJson(Map<String, dynamic> json) => PositionDto(
       positionName: json['positionName'] as String?,
-      salary: json['salary'] as int?,
+      salary: json['baseSalary'] as int?,
       id: json['_id'] as String?,
     );
 
 Map<String, dynamic> _$PositionDtoToJson(PositionDto instance) =>
     <String, dynamic>{
       'positionName': instance.positionName,
-      'salary': instance.salary,
+      'baseSalary': instance.salary,
       '_id': instance.id,
     };

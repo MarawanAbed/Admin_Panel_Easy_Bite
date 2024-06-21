@@ -7,6 +7,7 @@ import '../../../../../core/components/base_widget_bloc.dart';
 import '../../../../core/widgets/text-field/custom_text_field.dart';
 import '../../../main_index.dart';
 import '../../data/models/product_dto.dart';
+import '../../data/models/product_params.dart';
 import '../bloc/products_bloc.dart';
 import '../widgets/edit_profile_image.dart';
 import 'products_screen.dart';
@@ -62,76 +63,85 @@ class ProductsPage extends BaseBlocWidget<DoubleDataSuccess, ProductsCubit> {
       },
     );
   }
+
+  @override
+  void onSuccessDismissed() {
+    bloc.fetchInitialData();
+  }
 }
 
-showAddUserDialog(BuildContext context, Function(ProductDto) onAddUser,
+showAddUserDialog(BuildContext context, Function(ProductParams) onAddUser,
     {ProductDto? user, required List<DropDownItem> items}) {
   TextEditingController itemNameController =
       TextEditingController(text: user?.itemName);
   TextEditingController priceController =
       TextEditingController(text: user?.price?.toString() ?? '');
-  TextEditingController descriptionController = TextEditingController(text: user?.description);
-  String catId = user?.category?.id ?? '';
+  TextEditingController descriptionController =
+      TextEditingController(text: user?.description);
+  String catId = items.firstOrNull((element) => element.title == user?.category?.categoryName)
+          ?.id ??
+      '';
   File image = File('');
   final strings = context.getStrings();
   showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-            title: Text(strings.add_product),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                EditProfileImage(
-                  image: user?.image ?? '',
-                  onSelectImage: (file) {
-                    print('file: $file');
-                    image = file;
-                  },
-                ),
-                CustomTextField(
-                  hintText: strings.product_name,
-                  controller: itemNameController,
-                ),
-                CustomTextField(
-                  hintText: strings.price,
-                  controller: priceController,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                ),
-                CustomTextField(
-                  hintText: strings.description,
-                  controller: descriptionController,
-                ),
-                DropDownField(
-                  hint: strings.categories,
-                  items: items,
-                  onChanged: (value) {
-                    catId = value.id ?? '';
-                  },
-                ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  onAddUser(ProductDto(
-                    id: user?.id,
-                    itemName: itemNameController.text,
-                    price: int.parse(priceController.text),
-                    description: descriptionController.text,
-                    image: image.path,
-                    categoryId: catId,
-                  ));
-                },
-                child: Text('Save'),
-              ),
-            ],
-          ));
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Add Product'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          EditProfileImage(
+            image: user?.image ?? '',
+            onSelectImage: (file) {
+              print('file: $file');
+              image = file;
+            },
+          ),
+          CustomTextField(
+            hintText: strings.product_name,
+            controller: itemNameController,
+          ),
+          CustomTextField(
+            hintText: strings.price,
+            controller: priceController,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          ),
+          CustomTextField(
+            hintText: strings.description,
+            controller: descriptionController,
+          ),
+          DropDownField(
+            hint: strings.categories,
+            items: items,
+            value: catId,
+            onChanged: (value) {
+              catId = value.id ?? '';
+            },
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            onAddUser(ProductParams(
+              id: user?.id,
+              itemName: itemNameController.text,
+              price: int.parse(priceController.text),
+              description: descriptionController.text,
+              image: image.path.isNotEmpty ? image.path : user?.image,
+              categoryId: catId,
+            ));
+          },
+          child: Text('Save'),
+        ),
+      ],
+    ),
+  );
 }

@@ -20,30 +20,38 @@ class CategoriesScreen extends StatelessWidget {
       padding: 10.paddingAll,
       itemBuilder: (context, index) {
         final item = data[index];
-        return ListTile(
-          leading: ImageNetwork(
-            url: item.categoryName,
-            height: 50,
-            width: 50,
-          ),
-          title: Text(item.categoryName ?? ''),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  onDelete(item.id ?? '0');
-                },
+        return Padding(
+          padding: 10.paddingBottom,
+          child: ListTile(
+            tileColor: context.cardColor,
+            title: Row(
+              children: [ImageNetwork(
+                url: item.image,
+                height: 100,
+                width: 120,
               ),
-              10.pw,
-              IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () {
-                  onEdit(item);
-                },
-              ),
-            ],
+                10.pw,
+                Text(item.categoryName ?? ''),
+              ],
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    onDelete(item.id ?? '0');
+                  },
+                ),
+                10.pw,
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    onEdit(item);
+                  },
+                ),
+              ],
+            ),
           ),
         );
       },

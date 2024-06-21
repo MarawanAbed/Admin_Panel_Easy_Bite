@@ -7,6 +7,7 @@ import 'package:admin/src/users/presentation/pages/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../src/ads/presentation/pages/ads_page.dart';
 import '../../src/dashboard/presentation/pages/dashboard_page.dart';
 import '../../src/employees/presentation/pages/employees_page.dart';
 import '../../src/products/presentation/pages/products_page.dart';
@@ -23,7 +24,7 @@ class MainScreen extends StatelessWidget {
       PositionsPage(),
       EmployeesPage(),
       UsersPage(),
-      UsersPage(),
+      AdsPage(),
     ];
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,

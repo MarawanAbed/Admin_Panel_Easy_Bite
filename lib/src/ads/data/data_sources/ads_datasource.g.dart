@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'employees_datasource.dart';
+part of 'ads_datasource.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'employees_datasource.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _EmployeesDatasource implements EmployeesDatasource {
-  _EmployeesDatasource(
+class _AdsDatasource implements AdsDatasource {
+  _AdsDatasource(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,7 +21,7 @@ class _EmployeesDatasource implements EmployeesDatasource {
   String? baseUrl;
 
   @override
-  Future<dynamic> createEmployee(EmployeeParams params) async {
+  Future<dynamic> createAd(AdDto params) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -34,7 +34,7 @@ class _EmployeesDatasource implements EmployeesDatasource {
     )
         .compose(
           _dio.options,
-          '/employees/register',
+          '/ads/create',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -48,9 +48,9 @@ class _EmployeesDatasource implements EmployeesDatasource {
   }
 
   @override
-  Future<dynamic> updateEmployee(
+  Future<dynamic> updateAd(
     dynamic id,
-    EmployeeParams params,
+    AdDto params,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -64,7 +64,7 @@ class _EmployeesDatasource implements EmployeesDatasource {
     )
         .compose(
           _dio.options,
-          '/employees/update/${id}',
+          '/ads/update/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -78,20 +78,20 @@ class _EmployeesDatasource implements EmployeesDatasource {
   }
 
   @override
-  Future<List<EmployeeDto>> fetchEmployees() async {
+  Future<List<AdDto>> fetchAds() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<EmployeeDto>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<AdDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/employees',
+              '/ads',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -101,25 +101,25 @@ class _EmployeesDatasource implements EmployeesDatasource {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => EmployeeDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => AdDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<String> deleteEmployee(dynamic id) async {
+  Future<dynamic> deleteAd(dynamic id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/employees/delete/${id}',
+          '/ads/delete/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -128,7 +128,7 @@ class _EmployeesDatasource implements EmployeesDatasource {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data!;
+    final value = _result.data;
     return value;
   }
 

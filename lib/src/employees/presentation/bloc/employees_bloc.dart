@@ -17,7 +17,7 @@ class EmployeesCubit extends BaseCubit {
   void fetchInitialData() async {
     try {
       emit(DataLoading());
-      final response = await usecase.fetchUsers();
+      final response = await usecase.fetchEmployees();
       final positions = await positionsUseCase.fetchPositions();
       List<DropDownItem> items = positions
           .map((e) => DropDownItem(
@@ -26,6 +26,7 @@ class EmployeesCubit extends BaseCubit {
       emit(DoubleDataSuccess(data1: response, data2: items));
     } catch (e) {
       emit(DataFailed(e));
+      rethrow;
     }
   }
 

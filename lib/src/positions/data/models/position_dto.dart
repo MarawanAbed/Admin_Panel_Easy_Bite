@@ -6,7 +6,7 @@ part 'position_dto.g.dart';
 class PositionDto {
   @JsonKey(name: 'positionName')
   String? positionName;
-  @JsonKey(name: 'salary')
+  @JsonKey(name: 'baseSalary')
   int? salary;
   @JsonKey(name: '_id')
   String? id;

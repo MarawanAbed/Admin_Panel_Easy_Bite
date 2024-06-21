@@ -21,90 +21,59 @@ class _ProductsDatasource implements ProductsDatasource {
   String? baseUrl;
 
   @override
-  Future<ProductDto> createProduct(
-    String itemName,
-    int price,
-    String description,
-    File image,
-    String category,
-  ) async {
+  Future<dynamic> createProduct(ProductParams params) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry(
-      'itemName',
-      itemName,
-    ));
-    _data.fields.add(MapEntry(
-      'price',
-      price.toString(),
-    ));
-    _data.fields.add(MapEntry(
-      'description',
-      description,
-    ));
-    _data.files.add(MapEntry(
-      'image',
-      MultipartFile.fromFileSync(
-        image.path,
-        filename: image.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    _data.fields.add(MapEntry(
-      'category',
-      category,
-    ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProductDto>(Options(
+    final _data = <String, dynamic>{};
+    _data.addAll(params.toJson());
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
-      contentType: 'multipart/form-data',
     )
-            .compose(
-              _dio.options,
-              '/items/create',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = ProductDto.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/items/create',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
     return value;
   }
 
   @override
-  Future<ProductDto> updateProduct(
+  Future<dynamic> updateProduct(
     dynamic id,
-    ProductDto params,
+    ProductParams params,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProductDto>(Options(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/items/update/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = ProductDto.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/items/update/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
     return value;
   }
 
@@ -138,12 +107,12 @@ class _ProductsDatasource implements ProductsDatasource {
   }
 
   @override
-  Future<String> deleteProduct(dynamic id) async {
+  Future<dynamic> deleteProduct(dynamic id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
@@ -159,7 +128,7 @@ class _ProductsDatasource implements ProductsDatasource {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data!;
+    final value = _result.data;
     return value;
   }
 

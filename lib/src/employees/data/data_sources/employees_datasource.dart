@@ -5,6 +5,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../../core/utils/constants.dart';
 import '../models/employee_dto.dart';
+import '../models/employee_params.dart';
 
 part 'employees_datasource.g.dart';
 @Injectable()
@@ -15,10 +16,10 @@ abstract class  EmployeesDatasource{
   factory EmployeesDatasource(Dio dio) = _EmployeesDatasource;
 
   @POST('/employees/register')
-  Future<EmployeeDto> createEmployee(@Body() EmployeeDto params);
+  Future createEmployee(@Body() EmployeeParams params);
 
   @PUT('/employees/update/{id}')
-  Future<EmployeeDto> updateEmployee(@Path('id') id, @Body() EmployeeDto params);
+  Future updateEmployee(@Path('id') id, @Body() EmployeeParams params);
 
   @GET('/employees')
   Future<List<EmployeeDto>> fetchEmployees();

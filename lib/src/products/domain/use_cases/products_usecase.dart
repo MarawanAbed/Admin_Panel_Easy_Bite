@@ -5,45 +5,45 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/firebase/chat_firebase_service.dart';
 import '../../data/data_sources/products_datasource.dart';
 import '../../data/models/product_dto.dart';
+import '../../data/models/product_params.dart';
 
 @Injectable()
 class ProductsUseCase {
-  final ProductsDatasource  apiProvider;
+  final ProductsDatasource apiProvider;
+
   ProductsUseCase(this.apiProvider);
 
   Future<List<ProductDto>> fetchUsers() async {
-    return  await apiProvider.fetchProducts();
+    return await apiProvider.fetchProducts();
   }
 
-  Future<ProductDto> createUser(ProductDto params) async {
+  Future<String> createUser(ProductParams params) async {
     print('params: ${params.toJson()}');
     String file = await ChatFirebaseService.handleImage(
-      params.id!,
-      file: File(params.image!),
-      image: params.image!,
-    ) ?? '';
-    return  await apiProvider.createProduct(
-      params.itemName!,
-      params.price ?? 0,
-      file,
-      File(params.image!),
-      params.categoryId!,
-    );
+          params.id,
+          file: File(params.image!),
+          image: params.image!,
+        ) ??
+        '';
+    params.image = file;
+    await apiProvider.createProduct(params);
+    return 'Success created product';
   }
 
   Future<String> deleteUser(id) async {
-    return  await apiProvider.deleteProduct(id);
+    await apiProvider.deleteProduct(id);
+    return 'Success deleted product';
   }
 
-  Future<ProductDto> updateUser(ProductDto params) async {
+  Future<String> updateUser(ProductParams params) async {
     String file = await ChatFirebaseService.handleImage(
-      params.id!,
-      file: File(params.image!),
-      image: params.image!,
-    ) ?? '';
+          params.id!,
+          file: File(params.image!),
+          image: params.image!,
+        ) ??
+        '';
     params.image = file;
-    return  await apiProvider.updateProduct(params.id, params);
+    await apiProvider.updateProduct(params.id, params);
+    return 'Success updated product';
   }
-
-
 }

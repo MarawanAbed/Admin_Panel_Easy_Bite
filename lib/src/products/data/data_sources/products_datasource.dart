@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:admin/src/products/data/models/product_params.dart';
 import 'package:admin/src/profile/data/models/profile_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -17,22 +18,15 @@ abstract class ProductsDatasource {
   @factoryMethod
   factory ProductsDatasource(Dio dio) = _ProductsDatasource;
 
-  @MultiPart()
   @POST('/items/create')
-  Future<ProductDto> createProduct(
-    @Part(name: 'itemName') String itemName,
-    @Part(name: 'price') int price,
-    @Part(name: 'description') String description,
-    @Part(name: 'image') File image,
-    @Part(name: 'category') String category,
-  );
+  Future createProduct(@Body() ProductParams params);
 
   @PUT('/items/update/{id}')
-  Future<ProductDto> updateProduct(@Path('id') id, @Body() ProductDto params);
+  Future updateProduct(@Path('id') id, @Body() ProductParams params);
 
   @GET('/items')
   Future<List<ProductDto>> fetchProducts();
 
   @DELETE('/items/delete/{id}')
-  Future<String> deleteProduct(@Path('id') id);
+  Future deleteProduct(@Path('id') id);
 }

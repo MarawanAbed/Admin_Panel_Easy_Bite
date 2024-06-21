@@ -2,10 +2,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../../categories/data/models/category_dto.dart';
 
-part 'product_dto.g.dart'; 
+part 'product_params.g.dart';
 
 @JsonSerializable(ignoreUnannotated: false)
-class ProductDto {
+class ProductParams {
   @JsonKey(name: '_id', includeIfNull: false)
   String? id;
   @JsonKey(name: 'itemName')
@@ -14,8 +14,8 @@ class ProductDto {
   String? description;
   @JsonKey(name: 'image')
   String? image;
-  @JsonKey(name: 'category', includeIfNull: false, includeToJson: false)
-  CategoryDto? category;
+  @JsonKey(name: 'category')
+  String? categoryId;
   @JsonKey(name: 'price')
   int? price;
   @JsonKey(name: 'createdAt')
@@ -25,10 +25,10 @@ class ProductDto {
   @JsonKey(name: '__v')
   int? v;
 
-  ProductDto({this.id, this.itemName, this.description, this.image, this.category, this.price, this.createdAt, this.updatedAt, this.v});
+  ProductParams({this.id, this.itemName, this.description, this.image, this.categoryId,this.price, this.createdAt, this.updatedAt, this.v});
 
-   factory ProductDto.fromJson(Map<String, dynamic> json) => _$ProductDtoFromJson(json);
+   factory ProductParams.fromJson(Map<String, dynamic> json) => _$ProductParamsFromJson(json);
 
-   Map<String, dynamic> toJson() => _$ProductDtoToJson(this);
+   Map<String, dynamic> toJson() => _$ProductParamsToJson(this);
 }
 

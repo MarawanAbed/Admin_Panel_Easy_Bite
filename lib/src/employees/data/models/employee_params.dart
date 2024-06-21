@@ -1,10 +1,9 @@
-import 'package:admin/src/positions/data/models/position_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'employee_dto.g.dart';
+part 'employee_params.g.dart';
 
 @JsonSerializable()
-class EmployeeDto {
+class EmployeeParams {
   @JsonKey(name: "_id")
   final String? id;
   @JsonKey(name: "employeeName")
@@ -14,7 +13,7 @@ class EmployeeDto {
   @JsonKey(name: "address")
   final String? address;
   @JsonKey(name: "position")
-  final PositionDto? position;
+  final String? position;
   @JsonKey(name: "birthDate")
   final String? birthDate;
   @JsonKey(name: "hireDate")
@@ -24,7 +23,7 @@ class EmployeeDto {
   @JsonKey(name: 'image')
   String? image;
 
-  EmployeeDto ({
+  EmployeeParams({
     this.id,
     this.employeeName,
     this.email,
@@ -36,12 +35,12 @@ class EmployeeDto {
     this.image,
   });
 
-  factory EmployeeDto.fromJson(Map<String, dynamic> json) {
-    return _$EmployeeDtoFromJson(json);
+  factory EmployeeParams.fromJson(Map<String, dynamic> json) {
+    return _$EmployeeParamsFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    return _$EmployeeDtoToJson(this);
+    return _$EmployeeParamsToJson(this);
   }
 }
 

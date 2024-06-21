@@ -18,10 +18,9 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200,
-        childAspectRatio: 0.7,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
+        maxCrossAxisExtent: 300,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
       ),
       itemCount: data.length,
       shrinkWrap: true,
@@ -36,13 +35,11 @@ class ProductsScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                EditProfileImage(
-                  image: item.itemName ?? '',
-                  isCircle: false,
-                  onSelectImage: (file) {
-                    print(file);
-                  },
-                ),
+               ImageNetwork(
+                  url: item.image ?? '',
+                  width: 300,
+                  height: 200,
+               ),
                 Text(item.itemName ?? ''),
                 Text(item.price.toString() ?? ''),
                 Text(item.description ?? ''),

@@ -153,6 +153,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/loading.gif
     - assets/icons/
     - assets/logo/
 

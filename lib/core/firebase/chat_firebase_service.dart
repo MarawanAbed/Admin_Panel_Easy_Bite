@@ -67,10 +67,14 @@ class ChatFirebaseService {
     String? image,
     File? file,
   }) async {
+    print('id: $id');
+    print('image: $image');
+    print('file: $file');
+
     if (id == null) {
       return await saveImage(file!);
     } else {
-      if (file == null) {
+      if (file!.path.contains('https://firebasestorage.googleapis.com/')) {
         return image;
       } else {
         return await updateImage(file, image!);

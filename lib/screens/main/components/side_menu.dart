@@ -72,8 +72,8 @@ class SideMenu extends StatelessWidget {
             isIcon: isMobile,
           ),
           DrawerListTile(
-            title: strings.settings,
-            svgSrc: "assets/icons/menu_setting.svg",
+            title: strings.banners,
+            svgSrc: "assets/icons/ads.svg",
             press: () => onNavigate(6),
             isIcon: isMobile,
           ),

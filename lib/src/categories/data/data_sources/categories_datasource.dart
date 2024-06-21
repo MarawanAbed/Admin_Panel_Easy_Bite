@@ -24,7 +24,7 @@ abstract class  CategoriesDatasource{
   @GET('/categories')
   Future<List<CategoryDto>> fetchCategories();
 
-  @DELETE('/users/delete/{id}')
+  @DELETE('/categories/delete/{id}')
   Future<String> deleteCategory(@Path('id') id);
 
 }

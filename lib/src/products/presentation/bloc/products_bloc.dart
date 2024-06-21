@@ -27,7 +27,7 @@ class ProductsCubit extends BaseCubit {
     }
   }
 
-  void createUser(params) async {
+  void createUser(params ) async {
     executeEmitterListener(() => usecase.createUser(params));
   }
 

@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'employee_dto.dart';
+part of 'employee_params.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmployeeDto _$EmployeeDtoFromJson(Map<String, dynamic> json) => EmployeeDto(
+EmployeeParams _$EmployeeParamsFromJson(Map<String, dynamic> json) =>
+    EmployeeParams(
       id: json['_id'] as String?,
       employeeName: json['employeeName'] as String?,
       email: json['email'] as String?,
       address: json['address'] as String?,
-      position: json['position'] == null
-          ? null
-          : PositionDto.fromJson(json['position'] as Map<String, dynamic>),
+      position: json['position'] as String?,
       birthDate: json['birthDate'] as String?,
       hireDate: json['hireDate'] as String?,
       terminationDate: json['terminationDate'] as String?,
       image: json['image'] as String?,
     );
 
-Map<String, dynamic> _$EmployeeDtoToJson(EmployeeDto instance) =>
+Map<String, dynamic> _$EmployeeParamsToJson(EmployeeParams instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'employeeName': instance.employeeName,

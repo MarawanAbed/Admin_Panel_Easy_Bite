@@ -39,7 +39,7 @@ class EmployeesScreen extends BaseStatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EditProfileImage(
-                  image: item.employeeName ?? '',
+                  image: item.image ?? '',
                   onSelectImage: (file) {
                     print(file);
                   },
