@@ -14,6 +14,7 @@ ProductParams _$ProductParamsFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String?,
       categoryId: json['category'] as String?,
       price: json['price'] as int?,
+      stock: json['stock'] as int?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
       v: json['__v'] as int?,
@@ -34,6 +35,7 @@ Map<String, dynamic> _$ProductParamsToJson(ProductParams instance) {
   val['image'] = instance.image;
   val['category'] = instance.categoryId;
   val['price'] = instance.price;
+  val['stock'] = instance.stock;
   val['createdAt'] = instance.createdAt;
   val['updatedAt'] = instance.updatedAt;
   val['__v'] = instance.v;

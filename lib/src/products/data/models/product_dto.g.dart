@@ -15,6 +15,8 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
           ? null
           : CategoryDto.fromJson(json['category'] as Map<String, dynamic>),
       price: json['price'] as int?,
+      stock: json['stock'] as int?,
+      salesCount: json['salesCount'] as int?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
       v: json['__v'] as int?,
@@ -34,6 +36,8 @@ Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) {
   val['description'] = instance.description;
   val['image'] = instance.image;
   val['price'] = instance.price;
+  val['stock'] = instance.stock;
+  val['salesCount'] = instance.salesCount;
   val['createdAt'] = instance.createdAt;
   val['updatedAt'] = instance.updatedAt;
   val['__v'] = instance.v;

@@ -31,14 +31,15 @@ class CategoriesUseCase {
     return  await apiProvider.deleteCategory(id);
   }
 
-  Future<CategoryDto> updateUser(CreateCategoryParams params) async {
+  Future<String> updateUser(CreateCategoryParams params) async {
     String file = await ChatFirebaseService.handleImage(
       params.id!,
-      file: File(params.image!),
+      file: File(params.image ?? ''),
       image: params.image!,
     ) ?? '';
     params.image = file;
-    return  await apiProvider.updateCategory(params.id, params);
+    await apiProvider.updateCategory(params.id, params);
+    return 'Success update user';
   }
 
 

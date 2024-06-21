@@ -63,7 +63,7 @@ class CategoriesPage extends BaseBlocWidget<DataSuccess<List<CategoryDto>>, Cate
 showAddUserDialog(BuildContext context, Function(CreateCategoryParams) onAddUser, {CategoryDto? cat}) {
   TextEditingController nameController = TextEditingController(text: cat?.categoryName);
   bool isAdmin = false;
-  File? image;
+  File image = File('');
 
   showDialog(context: context, builder: (context) => AlertDialog(
     title: Text(context.strings.add_category),
@@ -95,10 +95,10 @@ showAddUserDialog(BuildContext context, Function(CreateCategoryParams) onAddUser
           onAddUser(CreateCategoryParams(
             id: cat?.id ?? '',
             categoryName: nameController.text,
-            image: image?.path,
+            image: image!.path.isEmpty ? cat?.image : image?.path,
           ));
         },
-        child: Text('Save'),
+        child: const Text('Save'),
       ),
     ],
   ));

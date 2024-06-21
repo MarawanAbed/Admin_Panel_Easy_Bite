@@ -54,6 +54,12 @@ class EmployeesPage extends BaseBlocWidget<DoubleDataSuccess, EmployeesCubit> {
       },
     );
   }
+
+  @override
+  void onSuccessDismissed() {
+    bloc.fetchInitialData();
+  }
+
 }
 
 showAddUserDialog(BuildContext context, Function(EmployeeParams) onAddUser,
@@ -65,13 +71,15 @@ showAddUserDialog(BuildContext context, Function(EmployeeParams) onAddUser,
   TextEditingController addressController =
       TextEditingController(text: user?.address);
   TextEditingController birthDateController =
-      TextEditingController(text: user?.birthDate);
+      TextEditingController(text: user?.birthDate?.split('T')[0]);
   TextEditingController hireDateController =
-      TextEditingController(text: user?.hireDate);
+      TextEditingController(text: user?.hireDate?.split('T')[0]);
   TextEditingController terminationDateController =
-      TextEditingController(text: user?.terminationDate);
+      TextEditingController(text: user?.terminationDate?.split('T')[0]);
   TextEditingController passwordController = TextEditingController();
-  String positionId = user?.position?.id ?? '';
+  String positionId = items.firstOrNull((element) => element.title == user?.position?.positionName)
+      ?.id ??
+      '';
   final strings = context.getStrings();
   File imageFile = File('');
   showDialog(
@@ -101,15 +109,45 @@ showAddUserDialog(BuildContext context, Function(EmployeeParams) onAddUser,
                 ),
                 CustomTextField(
                   hintText: strings.birth_date,
-                  controller: addressController,
+                  controller: birthDateController,
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100),
+                    ).then((value) {
+                      birthDateController.text = value.toString();
+                    });
+                  },
                 ),
                 CustomTextField(
                   hintText: strings.hire_date,
-                  controller: addressController,
+                  controller: hireDateController,
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100),
+                    ).then((value) {
+                      hireDateController.text = value.toString();
+                    });
+                  },
                 ),
                 CustomTextField(
                   hintText: strings.termination_date,
-                  controller: addressController,
+                  controller: terminationDateController,
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100),
+                    ).then((value) {
+                      terminationDateController.text = value.toString();
+                    });
+                  }
                 ),
                 DropDownField(
                   hint: strings.positions,

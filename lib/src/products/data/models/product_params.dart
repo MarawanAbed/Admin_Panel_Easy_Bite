@@ -18,6 +18,8 @@ class ProductParams {
   String? categoryId;
   @JsonKey(name: 'price')
   int? price;
+  @JsonKey(name: 'stock')
+  int? stock;
   @JsonKey(name: 'createdAt')
   String? createdAt;
   @JsonKey(name: 'updatedAt')
@@ -25,7 +27,7 @@ class ProductParams {
   @JsonKey(name: '__v')
   int? v;
 
-  ProductParams({this.id, this.itemName, this.description, this.image, this.categoryId,this.price, this.createdAt, this.updatedAt, this.v});
+  ProductParams({this.id, this.itemName, this.description, this.image,  this.stock, this.categoryId,this.price, this.createdAt, this.updatedAt, this.v});
 
    factory ProductParams.fromJson(Map<String, dynamic> json) => _$ProductParamsFromJson(json);
 

@@ -48,6 +48,9 @@ class ProductsPage extends BaseBlocWidget<DoubleDataSuccess, ProductsCubit> {
     items = state.data2;
     return ProductsScreen(
       data: state.data1 ?? [],
+      onAddStock: (id) {
+        // bloc.addStock(id);
+      },
       onDelete: (id) {
         bloc.deleteUser(id);
       },
@@ -76,6 +79,8 @@ showAddUserDialog(BuildContext context, Function(ProductParams) onAddUser,
       TextEditingController(text: user?.itemName);
   TextEditingController priceController =
       TextEditingController(text: user?.price?.toString() ?? '');
+  TextEditingController stockController =
+  TextEditingController(text: user?.stock?.toString() ?? '');
   TextEditingController descriptionController =
       TextEditingController(text: user?.description);
   String catId = items.firstOrNull((element) => element.title == user?.category?.categoryName)
@@ -104,6 +109,11 @@ showAddUserDialog(BuildContext context, Function(ProductParams) onAddUser,
           CustomTextField(
             hintText: strings.price,
             controller: priceController,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          ),
+          CustomTextField(
+            hintText: strings.price,
+            controller: stockController,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
           ),
           CustomTextField(
@@ -137,9 +147,10 @@ showAddUserDialog(BuildContext context, Function(ProductParams) onAddUser,
               description: descriptionController.text,
               image: image.path.isNotEmpty ? image.path : user?.image,
               categoryId: catId,
+              stock: int.parse(stockController.text),
             ));
           },
-          child: Text('Save'),
+          child: const Text('Save'),
         ),
       ],
     ),
