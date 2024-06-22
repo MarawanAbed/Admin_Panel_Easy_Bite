@@ -1,14 +1,9 @@
-import 'package:admin/core/widgets/texts/column_texts.dart';
-import 'package:admin/core/widgets/texts/custom_rich_text.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/images/image_network.dart';
 import '../../../../core/widgets/drop_down/drop_down.dart';
 import '../../../../core/widgets/text-field/custom_text_field.dart';
 import '../../../../core/widgets/texts/row_texts.dart';
 import '../../../main_index.dart';
-import '../../../products/presentation/widgets/edit_profile_image.dart';
 import '../../data/models/additional_pay_params.dart';
 import '../../data/models/deduction_params.dart';
 import '../../data/models/employee_dto.dart';
