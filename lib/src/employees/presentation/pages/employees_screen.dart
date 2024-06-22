@@ -24,7 +24,8 @@ class EmployeesScreen extends BaseStatelessWidget {
       required this.onEdit,
       required this.positions,
       required this.onAddBonus,
-      required this.onAddDeduction});
+      required this.onAddDeduction,
+      });
 
   @override
   Widget build(BuildContext context) {
