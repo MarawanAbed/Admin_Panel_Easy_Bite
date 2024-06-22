@@ -18,6 +18,8 @@ EmployeeDto _$EmployeeDtoFromJson(Map<String, dynamic> json) => EmployeeDto(
       hireDate: json['hireDate'] as String?,
       terminationDate: json['terminationDate'] as String?,
       image: json['image'] as String?,
+      additionalPay: json['additionalPay'] as int?,
+      deduction: json['deduction'] as int?,
     );
 
 Map<String, dynamic> _$EmployeeDtoToJson(EmployeeDto instance) =>
@@ -31,4 +33,6 @@ Map<String, dynamic> _$EmployeeDtoToJson(EmployeeDto instance) =>
       'hireDate': instance.hireDate,
       'terminationDate': instance.terminationDate,
       'image': instance.image,
+      'additionalPay': instance.additionalPay,
+      'deduction': instance.deduction,
     };

@@ -1,9 +1,11 @@
+import 'package:admin/src/employees/data/models/deduction_params.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../../core/utils/constants.dart';
+import '../models/additional_pay_params.dart';
 import '../models/employee_dto.dart';
 import '../models/employee_params.dart';
 
@@ -26,5 +28,11 @@ abstract class  EmployeesDatasource{
 
   @DELETE('/employees/delete/{id}')
   Future<String> deleteEmployee(@Path('id') id);
+
+  @PATCH('/employees/{id}/additionalpay')
+  Future<String> addBonus(@Body() AdditionalPayParams params, @Path('id') id);
+
+  @PATCH('/employees/{id}/deduction')
+  Future<String> addDeduction(@Body() DeductionParams params, @Path('id') id);
 
 }

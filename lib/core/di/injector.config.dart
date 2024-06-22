@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i22;
 
-import '../../screens/data/data_sources/dashboard_datasource.dart' as _i12;
+import '../../screens/data/data_sources/dashboard_datasource.dart' as _i11;
 import '../../src/ads/data/data_sources/ads_datasource.dart' as _i3;
 import '../../src/ads/domain/use_cases/ads_usecase.dart' as _i5;
 import '../../src/ads/presentation/bloc/ads_bloc.dart' as _i25;
@@ -34,7 +34,7 @@ import '../../src/categories/data/data_sources/categories_datasource.dart'
 import '../../src/categories/domain/use_cases/categories_usecase.dart' as _i10;
 import '../../src/categories/presentation/bloc/categories_bloc.dart' as _i31;
 import '../../src/dashboard/data/data_sources/dashboard_datasource.dart'
-    as _i11;
+    as _i12;
 import '../../src/dashboard/presentation/bloc/dashboard_bloc.dart' as _i32;
 import '../../src/employees/data/data_sources/employees_datasource.dart'
     as _i13;
@@ -115,7 +115,7 @@ Future<_i1.GetIt> $initGetIt(
   gh.factory<_i31.CategoriesCubit>(
       () => _i31.CategoriesCubit(gh<_i10.CategoriesUseCase>()));
   gh.factory<_i32.DashboardCubit>(
-      () => _i32.DashboardCubit(gh<_i12.DashboardDatasource>()));
+      () => _i32.DashboardCubit(gh<_i11.DashboardDatasource>()));
   gh.factory<_i33.EmployeesCubit>(() => _i33.EmployeesCubit(
         gh<_i14.EmployeesUseCase>(),
         gh<_i18.PositionsUseCase>(),

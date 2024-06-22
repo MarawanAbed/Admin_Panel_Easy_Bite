@@ -4,6 +4,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/firebase/chat_firebase_service.dart';
 import '../../data/data_sources/employees_datasource.dart';
+import '../../data/models/additional_pay_params.dart';
+import '../../data/models/deduction_params.dart';
 import '../../data/models/employee_dto.dart';
 import '../../data/models/employee_params.dart';
 
@@ -44,5 +46,15 @@ class EmployeesUseCase {
     params.image = file;
     await apiProvider.updateEmployee(params.id, params);
     return 'Success update employee';
+  }
+
+  Future<String> addBonus(AdditionalPayParams params) async {
+    await apiProvider.addBonus(params, params.id!);
+    return 'Success add bonus';
+  }
+
+  Future<String> addDeduction(DeductionParams params) async {
+    await apiProvider.addDeduction(params, params.id!);
+    return 'Success add deduction';
   }
 }

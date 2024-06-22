@@ -42,14 +42,14 @@ class RowTexts extends StatelessWidget {
         children: [
           Text(title,
               style: titleStyle ??
-                  context.headlineSmall.copyWith(fontSize: 16,
+                  context.displaySmall.copyWith(fontSize: 16,
                     color: titleColor,
                   ),
               strutStyle: titleStrutStyle),
           if (isSizedBox!)
             Text(value,
                 style: valueStyle ??
-                    context.headlineSmall.copyWith(fontSize: 16,
+                    context.bodySmall.copyWith(fontSize: 16,
                       color: valueColor,
                     ),
                 strutStyle: valueStrutStyle),

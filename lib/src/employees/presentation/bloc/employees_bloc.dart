@@ -41,4 +41,12 @@ class EmployeesCubit extends BaseCubit {
   void updateUser(params) async {
     executeEmitterListener(() => usecase.updateUser(params));
   }
+
+  void addBonus(params) async {
+    executeEmitterListener(() => usecase.addBonus(params));
+  }
+
+  void addDeduction(params) async {
+    executeEmitterListener(() => usecase.addDeduction(params));
+  }
 }

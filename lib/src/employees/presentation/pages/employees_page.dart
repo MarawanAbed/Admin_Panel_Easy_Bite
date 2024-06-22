@@ -52,6 +52,12 @@ class EmployeesPage extends BaseBlocWidget<DoubleDataSuccess, EmployeesCubit> {
           bloc.updateUser(params);
         }, user: params, items: items);
       },
+      onAddBonus: (params) {
+        bloc.addBonus(params);
+      },
+      onAddDeduction: (params) {
+        bloc.addDeduction(params);
+      },
     );
   }
 
@@ -152,6 +158,7 @@ showAddUserDialog(BuildContext context, Function(EmployeeParams) onAddUser,
                 DropDownField(
                   hint: strings.positions,
                   items: items,
+                  value: positionId,
                   onChanged: (value) {
                     positionId = value.id ?? '';
                   },
