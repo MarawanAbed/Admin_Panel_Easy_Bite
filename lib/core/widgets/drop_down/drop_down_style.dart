@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 InputDecoration inputDecoration(BuildContext context, IconData? prefixIcon) {
   return InputDecoration(
     isDense: true,
-    fillColor: Theme.of(context).backgroundColor,
     enabled: true,
     filled: true,
     enabledBorder: enabledBorder,
